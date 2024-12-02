@@ -1,8 +1,10 @@
-FROM golang:latest
+# Этап 1: Сборка Go-приложения
+FROM golang:latest AS builder
 
 WORKDIR /back
 
 COPY go.mod go.sum ./
+
 RUN go mod download
 
 COPY . .
@@ -14,6 +16,7 @@ FROM alpine:latest
 
 WORKDIR /back/cmd
 
+# Копирование из этапа builder
 COPY --from=builder /back/cmd/main ./main
 
 EXPOSE 8080
