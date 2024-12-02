@@ -27,7 +27,4 @@ deploy/.env
 
 docs/
 
-go.mod
-go.sum
-
 ../.env
