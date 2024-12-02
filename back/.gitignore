@@ -25,6 +25,4 @@ deploy/.env
 
 *.idea/
 
-docs/
-
 ../.env

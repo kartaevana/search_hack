@@ -1,0 +1,83 @@
+definitions:
+  models.UserCreate:
+    properties:
+      PWD:
+        type: string
+      email:
+        type: string
+      name:
+        type: string
+      surname:
+        type: string
+      tg:
+        type: string
+    type: object
+info:
+  contact: {}
+paths:
+  /user/{id}:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: user get
+        in: query
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Successfully get user
+          schema:
+            type: integer
+        "400":
+          description: Invalid input
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal server error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Get user
+      tags:
+      - user
+  /user/create:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: user create
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/models.UserCreate'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Successfully created user
+          schema:
+            type: integer
+        "400":
+          description: Invalid input
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal server error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Create user
+      tags:
+      - user
+swagger: "2.0"
