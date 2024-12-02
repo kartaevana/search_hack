@@ -11,3 +11,8 @@ type User struct {
 	ID int `json:"ID"`
 	UserBase
 }
+
+type UserCreate struct {
+	UserBase
+	PWD string `json:"PWD"`
+}
