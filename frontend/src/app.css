@@ -1,0 +1,26 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    height: 100%;
+    width: 100%;
+    /* background-color: #1e1e1e; */
+    background-color: rgba(44, 44, 44, 1);
+    color: #ffffff;
+
+}
+
+a {
+    text-decoration: none;
+}
+
+header {
+    height: 96px;
+    display: flex;
+    align-items: center;
+    background-color: #1e1e1e;
+}
