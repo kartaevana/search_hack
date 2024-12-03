@@ -1,6 +1,13 @@
 <script lang="ts">
 	import "../../app.css";
 	export let data;
+
+	let filters = {
+		designer: false,
+		frontend: false,
+		backend: false,
+		ml: false
+	};
 </script>
 
 <header>
@@ -35,7 +42,12 @@
 		</div>
 
 		<div>
-			<input type="search" id="inputSearch" placeholder="Поиск..." title="Поиск по ключевым словам"/>
+			<input
+				type="search"
+				id="inputSearch"
+				placeholder="Поиск..."
+				title="Поиск по ключевым словам"
+			/>
 			<ul class="questionnaires">
 				{#each data.summaries as { id, name, image, sphere, description }}
 					<li class="questionnaire">
@@ -69,13 +81,12 @@
 		.subheading {
 			height: 189px;
 			background-color: #1e1e1e;
-			h3{
+			h3 {
 				font-size: 29px;
 			}
 			/* надо убрать следующее */
 			/* border-style: solid;
 			border-color: rgb(241, 236, 236); */
-
 		}
 		.job_market {
 			height: 2148px;
@@ -100,12 +111,12 @@
 					}
 				}
 			}
-            #inputSearch{
-                margin: 37px;
-                height: 40px;
-                width: 347px;
-                border-radius: 30px;
-            }
+			#inputSearch {
+				margin: 37px;
+				height: 40px;
+				width: 347px;
+				border-radius: 30px;
+			}
 			.questionnaires {
 				display: flex;
 				flex-direction: row;
@@ -123,9 +134,8 @@
 					align-items: center;
 					img {
 						padding: 30px;
-
 					}
-					a{
+					a {
 						color: aliceblue;
 					}
 				}
