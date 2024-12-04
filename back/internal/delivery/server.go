@@ -27,6 +27,7 @@ func Start(db *sqlx.DB, log *log.Logs) {
 
 	userRouter.POST("/create", userHandler.CreateUser)
 	userRouter.GET("/:id", userHandler.GetUser)
+	userRouter.POST("/login", userHandler.LoginUser)
 
 	if err := r.Run("0.0.0.0:8080"); err != nil {
 		panic(fmt.Sprintf("error running client: %v", err.Error()))

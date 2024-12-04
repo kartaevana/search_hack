@@ -8,5 +8,12 @@
       <jdbc-url>jdbc:postgresql://localhost:5432/hack</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
+    <data-source source="LOCAL" name="hack@193.227.241.239" uuid="94cb086f-90a0-475a-8a2a-54cdf78f8da1">
+      <driver-ref>postgresql</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://193.227.241.239:5433/hack</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
   </component>
 </project>

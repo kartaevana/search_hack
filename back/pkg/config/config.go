@@ -27,6 +27,8 @@ const (
 )
 
 func InitConfig() {
+
+	fmt.Println(os.Getwd())
 	envPath, _ := os.Getwd()
 	envPath = filepath.Join(envPath, "..")
 	envPath = filepath.Join(envPath, "/deploy")

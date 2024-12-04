@@ -18,8 +18,8 @@ func (repo RepoUser) Create(ctx context.Context, user models.UserCreate) (int, e
 		return 0, err
 	}
 	//открываем транзакцию, чтобы изменить что-то в таблице
-	row := transaction.QueryRowxContext(ctx, `insert into users(name, sur_name, email, hashed_password) values ($1, $2, $3, $4) returning id;`,
-		user.Name, user.Surname, user.Email, user.PWD)
+	row := transaction.QueryRowxContext(ctx, `insert into users(name, sur_name, email, tg, hashed_password) values ($1, $2, $3, $4, $5) returning id;`,
+		user.Name, user.Surname, user.Email, user.Tg, user.PWD)
 	err = row.Scan(&id)
 	if err != nil {
 		if rbErr := transaction.Rollback(); rbErr != nil {
@@ -41,13 +41,24 @@ func (repo RepoUser) Create(ctx context.Context, user models.UserCreate) (int, e
 
 func (repo RepoUser) Get(ctx context.Context, id int) (*models.User, error) {
 	var user models.User
-	row := repo.db.QueryRowxContext(ctx, `SELECT name, sur_name, email FROM users WHERE id = $1`, id)
+	row := repo.db.QueryRowxContext(ctx, `SELECT name, sur_name, email, tg FROM users WHERE id = $1`, id)
 	err := row.Scan(&user.Name, &user.Surname, &user.Email)
 	if err != nil {
 		return nil, err
 	}
 	user.ID = id
 	return &user, nil
+}
+
+func (repo RepoUser) Login(ctx context.Context, email string) (int, string, error) {
+	var id int
+	var pwd string
+	row := repo.db.QueryRowxContext(ctx, `select hashed_password, id from users where email = $1`, email)
+	err := row.Scan(&pwd, &id)
+	if err != nil {
+		return 0, "", err
+	}
+	return id, pwd, nil
 }
 
 func InitUserRepository(db *sqlx.DB) repository.UserRepo {

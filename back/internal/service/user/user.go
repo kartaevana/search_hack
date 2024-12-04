@@ -15,6 +15,21 @@ type ServUser struct {
 	log      *log.Logs
 }
 
+func (serv ServUser) Login(ctx context.Context, user models.UserLogin) (int, error) {
+	id, pwd, err := serv.UserRepo.Login(ctx, user.Email)
+	if err != nil {
+		serv.log.Error(err.Error())
+		return 0, err
+	}
+	err = bcrypt.CompareHashAndPassword([]byte(pwd), []byte(user.PWD))
+	if err != nil {
+		serv.log.Error(err.Error())
+		return 0, err
+	}
+	serv.log.Info(fmt.Sprintf("login user: %v", id))
+	return id, nil
+}
+
 func (serv ServUser) Create(ctx context.Context, user models.UserCreate) (int, error) {
 	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(user.PWD), 10)
 	if err != nil {

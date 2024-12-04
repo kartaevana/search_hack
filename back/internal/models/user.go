@@ -16,3 +16,8 @@ type UserCreate struct {
 	UserBase
 	PWD string `json:"PWD"`
 }
+
+type UserLogin struct {
+	Email string `json:"email"`
+	PWD   string `json:"PWD"`
+}

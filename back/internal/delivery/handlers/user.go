@@ -78,3 +78,32 @@ func (handler UserHandler) GetUser(g *gin.Context) {
 
 	g.JSON(http.StatusOK, gin.H{"user": user})
 }
+
+// @Summary Login user
+// @Tags user
+// @Accept  json
+// @Produce  json
+// @Param data body models.UserLogin true "user login"
+// @Success 200 {object} int "Successfully login user"
+// @Failure 400 {object} map[string]string "Invalid input"
+// @Failure 500 {object} map[string]string "Internal server error"
+// @Router /user/{id} [login]
+func (handler UserHandler) LoginUser(g *gin.Context) {
+	var loginUser models.UserLogin
+
+	if err := g.ShouldBindJSON(&loginUser); err != nil {
+		g.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
+	defer cancel()
+
+	id, err := handler.service.Login(ctx, loginUser)
+	if err != nil {
+		g.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
+	g.JSON(http.StatusOK, gin.H{"id": id})
+}
