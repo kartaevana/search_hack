@@ -42,7 +42,7 @@ func (repo RepoUser) Create(ctx context.Context, user models.UserCreate) (int, e
 func (repo RepoUser) Get(ctx context.Context, id int) (*models.User, error) {
 	var user models.User
 	row := repo.db.QueryRowxContext(ctx, `SELECT name, sur_name, email, tg FROM users WHERE id = $1`, id)
-	err := row.Scan(&user.Name, &user.Surname, &user.Email)
+	err := row.Scan(&user.Name, &user.Surname, &user.Email, &user.Tg)
 	if err != nil {
 		return nil, err
 	}
