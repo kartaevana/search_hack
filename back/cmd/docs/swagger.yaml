@@ -12,6 +12,13 @@ definitions:
       tg:
         type: string
     type: object
+  models.UserLogin:
+    properties:
+      PWD:
+        type: string
+      email:
+        type: string
+    type: object
 info:
   contact: {}
 paths:
@@ -45,6 +52,38 @@ paths:
               type: string
             type: object
       summary: Get user
+      tags:
+      - user
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: user login
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/models.UserLogin'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Successfully login user
+          schema:
+            type: integer
+        "400":
+          description: Invalid input
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal server error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Login user
       tags:
       - user
   /user/create:
