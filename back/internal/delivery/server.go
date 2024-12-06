@@ -3,6 +3,7 @@ package delivery
 import (
 	"back/cmd/docs"
 	"back/internal/delivery/handlers"
+	"back/internal/delivery/middleware"
 	"back/internal/repository/user"
 	userserv "back/internal/service/user"
 	"back/pkg/log"
@@ -18,6 +19,8 @@ func Start(db *sqlx.DB, log *log.Logs) {
 	r.ForwardedByClientIP = true
 	docs.SwaggerInfo.BasePath = "/"
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
+	middlewareStruct := middleware.InitMiddleware(log)
+	r.Use(middlewareStruct.CORSMiddleware())
 
 	userRouter := r.Group("/user")
 
