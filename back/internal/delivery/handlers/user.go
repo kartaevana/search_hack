@@ -87,7 +87,7 @@ func (handler UserHandler) GetUser(g *gin.Context) {
 // @Success 200 {object} int "Successfully login user"
 // @Failure 400 {object} map[string]string "Invalid input"
 // @Failure 500 {object} map[string]string "Internal server error"
-// @Router /user/{id} [post]
+// @Router /user/login [post]
 func (handler UserHandler) LoginUser(g *gin.Context) {
 	var loginUser models.UserLogin
 
