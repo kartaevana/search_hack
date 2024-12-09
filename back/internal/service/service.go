@@ -10,3 +10,7 @@ type UserServ interface {
 	Get(ctx context.Context, id int) (*models.User, error)
 	Login(ctx context.Context, user models.UserLogin) (int, error)
 }
+
+type FormServ interface {
+	Create(ctx context.Context, form models.FormCreate) (int, error)
+}

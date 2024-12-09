@@ -7,8 +7,15 @@ create table if not exists users (
     name varchar,
     sur_name varchar,
     hashed_password varchar,
-    tg varchar,
+    tg varchar
+);
+
+create table if not exists form (
+    id serial not null primary key,
+    id_user bigint,
+    id_hack bigint,
     about varchar,
+    photo varchar,
     sphere varchar
 );
 
@@ -22,13 +29,13 @@ create table if not exists hack (
 create table if not exists team (
     id serial not null primary key,
     name varchar,
-    id_hack varchar,
-    id_kap varchar
+    id_hack bigint,
+    id_kap bigint
 );
 
 create table if not exists team_user (
-    team_id serial not null primary key,
-    user_id varchar
+    team_id bigint,
+    user_id bigint
 );
 -- +goose StatementEnd
 

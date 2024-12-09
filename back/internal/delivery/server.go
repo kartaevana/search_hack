@@ -4,7 +4,9 @@ import (
 	"back/cmd/docs"
 	"back/internal/delivery/handlers"
 	"back/internal/delivery/middleware"
+	"back/internal/repository/form"
 	"back/internal/repository/user"
+	formserv "back/internal/service/form"
 	userserv "back/internal/service/user"
 	"back/pkg/log"
 	"fmt"
@@ -31,6 +33,15 @@ func Start(db *sqlx.DB, log *log.Logs) {
 	userRouter.POST("/create", userHandler.CreateUser)
 	userRouter.GET("/:id", userHandler.GetUser)
 	userRouter.POST("/login", userHandler.LoginUser)
+
+	formRouter := r.Group("/form")
+
+	formRepo := form.InitFormRepository(db)
+	formService := formserv.InitFormService(formRepo)
+	formHandler := handlers.InitFormHandler(formService)
+
+	formRouter.POST("/create", formHandler.CreateForm)
+	// formRouter.GET("/:id", formHandler.GetForm)
 
 	if err := r.Run("0.0.0.0:8080"); err != nil {
 		panic(fmt.Sprintf("error running client: %v", err.Error()))

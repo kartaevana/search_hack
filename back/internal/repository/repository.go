@@ -10,3 +10,7 @@ type UserRepo interface {
 	Get(ctx context.Context, id int) (*models.User, error)
 	Login(ctx context.Context, email string) (int, string, error)
 }
+
+type FormRepo interface {
+	Create(ctx context.Context, form models.FormCreate) (int, error)
+}
