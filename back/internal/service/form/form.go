@@ -4,11 +4,24 @@ import (
 	"back/internal/models"
 	"back/internal/repository"
 	"back/internal/service"
+	"back/pkg/log"
 	"context"
+	"fmt"
 )
 
 type ServForm struct {
 	FormRepo repository.FormRepo
+	log      *log.Logs
+}
+
+func (serv ServForm) Get(ctx context.Context, id int) (*models.Form, error) {
+	form, err := serv.FormRepo.Get(ctx, id)
+	if err != nil {
+		serv.log.Error(err.Error())
+		return nil, err
+	}
+	serv.log.Info(fmt.Sprintf("get form: %v", id))
+	return form, nil
 }
 
 func (serv ServForm) Create(ctx context.Context, form models.FormCreate) (int, error) {
@@ -19,6 +32,6 @@ func (serv ServForm) Create(ctx context.Context, form models.FormCreate) (int, e
 	return id, nil
 }
 
-func InitFormService(formRepo repository.FormRepo) service.FormServ {
-	return &ServForm{FormRepo: formRepo}
+func InitFormService(formRepo repository.FormRepo, log *log.Logs) service.FormServ {
+	return &ServForm{FormRepo: formRepo, log: log}
 }

@@ -23,16 +23,14 @@ type UserLogin struct {
 }
 
 type FormCreate struct {
-	UserID int    `json:"userID"`
-	Photo  string `json:"photo"`
-	About  string `json:"about"`
-	Sphere string `json:"sphere"`
+	ID_User int    `json:"ID_User"`
+	Photo   string `json:"photo"`
+	About   string `json:"about"`
+	Sphere  string `json:"sphere"`
 }
 
 type Form struct {
-	IDForm int `json:"IDForm"`
+	ID int `json:"ID"`
 	User
-	Photo  string `json:"photo"`
-	About  string `json:"about"`
-	Sphere string `json:"sphere"`
+	FormCreate
 }

@@ -37,11 +37,11 @@ func Start(db *sqlx.DB, log *log.Logs) {
 	formRouter := r.Group("/form")
 
 	formRepo := form.InitFormRepository(db)
-	formService := formserv.InitFormService(formRepo)
+	formService := formserv.InitFormService(formRepo, log)
 	formHandler := handlers.InitFormHandler(formService)
 
 	formRouter.POST("/create", formHandler.CreateForm)
-	// formRouter.GET("/:id", formHandler.GetForm)
+	formRouter.GET("/:id", formHandler.GetForm)
 
 	if err := r.Run("0.0.0.0:8080"); err != nil {
 		panic(fmt.Sprintf("error running client: %v", err.Error()))

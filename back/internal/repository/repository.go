@@ -13,4 +13,5 @@ type UserRepo interface {
 
 type FormRepo interface {
 	Create(ctx context.Context, form models.FormCreate) (int, error)
+	Get(ctx context.Context, id int) (*models.Form, error)
 }

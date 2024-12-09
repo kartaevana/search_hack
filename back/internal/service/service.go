@@ -13,4 +13,5 @@ type UserServ interface {
 
 type FormServ interface {
 	Create(ctx context.Context, form models.FormCreate) (int, error)
+	Get(ctx context.Context, id int) (*models.Form, error)
 }
