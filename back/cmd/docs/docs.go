@@ -66,6 +66,55 @@ const docTemplate = `{
                 }
             }
         },
+        "/form/{id}": {
+            "get": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "form"
+                ],
+                "summary": "Get form",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "form get",
+                        "name": "id",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successfully get form",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid input",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/user/create": {
             "post": {
                 "consumes": [
@@ -222,6 +271,9 @@ const docTemplate = `{
         "models.FormCreate": {
             "type": "object",
             "properties": {
+                "ID_User": {
+                    "type": "integer"
+                },
                 "about": {
                     "type": "string"
                 },
@@ -230,9 +282,6 @@ const docTemplate = `{
                 },
                 "sphere": {
                     "type": "string"
-                },
-                "userID": {
-                    "type": "integer"
                 }
             }
         },

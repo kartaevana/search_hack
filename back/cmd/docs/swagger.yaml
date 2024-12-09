@@ -1,14 +1,14 @@
 definitions:
   models.FormCreate:
     properties:
+      ID_User:
+        type: integer
       about:
         type: string
       photo:
         type: string
       sphere:
         type: string
-      userID:
-        type: integer
     type: object
   models.UserCreate:
     properties:
@@ -33,6 +33,38 @@ definitions:
 info:
   contact: {}
 paths:
+  /form/{id}:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: form get
+        in: query
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Successfully get form
+          schema:
+            type: integer
+        "400":
+          description: Invalid input
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal server error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Get form
+      tags:
+      - form
   /form/create:
     post:
       consumes:
