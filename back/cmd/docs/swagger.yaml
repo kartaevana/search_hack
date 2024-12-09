@@ -1,4 +1,15 @@
 definitions:
+  models.FormCreate:
+    properties:
+      about:
+        type: string
+      photo:
+        type: string
+      sphere:
+        type: string
+      userID:
+        type: integer
+    type: object
   models.UserCreate:
     properties:
       PWD:
@@ -22,6 +33,39 @@ definitions:
 info:
   contact: {}
 paths:
+  /form/create:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: form create
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/models.FormCreate'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Successfully created form
+          schema:
+            type: integer
+        "400":
+          description: Invalid input
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal server error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Create form
+      tags:
+      - form
   /user/{id}:
     get:
       consumes:
