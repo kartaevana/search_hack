@@ -1,5 +1,5 @@
 <script lang="ts">
-    import "../../../app.css";
+    import "../../app.css";
 </script>
 <header>
     <img height="24px" src="/cover.png" alt="" style="margin-left:15px" />
@@ -75,7 +75,9 @@
             align-items: center;
             background-color: #1e1e1e;
             width: 977px;
-            height: 714px;
+            height: 704px;
+            // margin: 10px;
+            margin-bottom: 30px;
 
 
 
@@ -105,8 +107,6 @@
                 background-color: rgba(245, 245, 245, 1);
                 height: 190%;
                 width: 310px;
-                /* width: 390%; */
-                /* padding: 20px; */
                 border-radius: 8px;
             }
         }

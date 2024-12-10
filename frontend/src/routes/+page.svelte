@@ -1,5 +1,5 @@
 <script lang="ts">
-	import "../../app.css";
+	import "../app.css";
 	export let data;
 
 	let filters = {
@@ -21,38 +21,26 @@
 
 	<div class="subheading">
 		<h3>Рынок вакансий</h3>
+
+		<input type="search" id="inputSearch" placeholder="Поиск..." title="Поиск по ключевым словам" />
+
+		<form>
+			<select name="sphere" id="sphere-select">
+				<option value="all"> Все </option>
+				<option value="designer">Дизайнер</option>
+				<option value="frontend">Фронтенд</option>
+				<option value="ml">ML</option>
+				<option value="backend">Бэкенд</option>
+			</select>
+		</form>
 	</div>
-
 	<div class="job_market">
-		<div class="sidebar" style="width:20%">
-			<div class="filter_box" style="margin-left:30px">
-				<p>Фильтрация</p>
-				<form action="/action_page.php">
-					<input type="checkbox" id="designer" name="designer" />
-					<label for="designer"> дизайнер</label><br />
-					<input type="checkbox" id="frontend" name="frontend" />
-					<label for="frontend">фронтенд </label><br />
-					<input type="checkbox" id="backend" name="backend" />
-					<label for="backend"> бэкенд</label><br />
-					<input type="checkbox" id="ml" name="ml" />
-					<label for="ml">ML</label><br />
-					<input type="submit" value="Фильтр" />
-				</form>
-			</div>
-		</div>
-
 		<div>
-			<input
-				type="search"
-				id="inputSearch"
-				placeholder="Поиск..."
-				title="Поиск по ключевым словам"
-			/>
 			<ul class="questionnaires">
 				{#each data.summaries as { id, name, image, sphere, description }}
 					<li class="questionnaire">
 						<img src={image} alt="" width="384px" height="400px" />
-						<a href="/project/{id}">{name}, {sphere}</a>
+						<a href="/{id}">{name}, {sphere}</a>
 						<p>{description.substring(0, 500)}</p>
 					</li>
 				{/each}
@@ -79,14 +67,31 @@
 			}
 		}
 		.subheading {
-			height: 189px;
+			height: 160px;
+			display: flex;
+			flex-direction: row;
 			background-color: #1e1e1e;
+			justify-content: center;
+			align-items: baseline;
+			gap: 20px;
+			padding-top: 30px;
 			h3 {
 				font-size: 29px;
 			}
-			/* надо убрать следующее */
-			/* border-style: solid;
-			border-color: rgb(241, 236, 236); */
+			#inputSearch {
+				// margin: 37px;
+				height: 40px;
+				width: 347px;
+				border-radius: 30px;
+				background-color: rgba(44, 44, 44, 1);
+			}
+			#sphere-select {
+				color: aliceblue;
+				width: 243px;
+				height: 37px;
+				border-radius: 10px;
+				background-color: rgba(44, 44, 44, 1);
+			}
 		}
 		.job_market {
 			height: 2148px;
@@ -94,40 +99,17 @@
 			flex-direction: row;
 			background-color: #1e1e1e;
 
-			.sidebar {
-				display: flex;
-				justify-content: center;
-				.filter_box {
-					display: flex;
-					flex-direction: column;
-					width: 240px;
-					height: 278px;
-					border-style: solid;
-					border-color: rgb(241, 236, 236);
-					margin-top: 40px;
-					p {
-						margin-top: 20px;
-						margin-left: 10px;
-					}
-				}
-			}
-			#inputSearch {
-				margin: 37px;
-				height: 40px;
-				width: 347px;
-				border-radius: 30px;
-			}
 			.questionnaires {
+				margin-left: 13px;
 				display: flex;
 				flex-direction: row;
 				flex-wrap: wrap;
 				justify-content: start;
-				margin: 37px;
 				gap: 36px;
 				.questionnaire {
 					display: flex;
 					flex-direction: column;
-					width: 340px;
+					width: 326px;
 					border-style: solid;
 					border-color: rgb(241, 236, 236);
 					padding: 10px;
