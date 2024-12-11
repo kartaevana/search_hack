@@ -7,6 +7,15 @@
 	function go_sign_in() {
 		goto("/sign_in");
 	}
+
+	// let colour = "#ffffff";
+
+	// function handleMouseOver(e) {
+	// 	colour = "rgba(44, 44, 44, 1);";
+	// }
+	// function handleMouseOut(e) {
+	// 	colour = "#ffffff";
+	// }
 </script>
 
 <header>
@@ -18,7 +27,16 @@
 		<h1>Dream team</h1>
 		<h2>Присоединяйтесь к нам!</h2>
 		<div>
-			<input type="button" on:click={go_sign_up} value="Регистрация" id="sign_up" />
+			<input type="button" on:click={go_sign_up} value="Регистрация" id="sign_up"/>
+			<!-- <input
+				type="button"
+				on:click={go_sign_up}
+				value="Регистрация"
+				id="sign_up"
+				style="background-color: {colour};"
+				on:mouseover={handleMouseOver}
+				on:mouseout={handleMouseOut}
+			/> -->
 			<input type="button" on:click={go_sign_in} value="Вход" id="sign_in" />
 		</div>
 	</div>

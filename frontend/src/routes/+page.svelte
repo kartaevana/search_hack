@@ -2,12 +2,25 @@
 	import "../app.css";
 	export let data;
 
-	let filters = {
-		designer: false,
-		frontend: false,
-		backend: false,
-		ml: false
-	};
+	let sphere = ["all", "frontend", "backend", "ml", "design"];
+	let filteredSpeheres: Array<{ id: number; name: string; image: string; sphere: string; description: string }> = [];
+	let selectedSphere = "all";
+	import { onMount } from "svelte";
+
+	$: if (selectedSphere) getBooksByLang();
+	const getBooksByLang = () => {
+		
+		if (selectedSphere === "all") {
+			return filteredSpeheres = data.summaries;
+		} 
+		return filteredSpeheres = data.summaries.filter(summary => summary.sphere === selectedSphere);
+	}	
+	onMount(() => {
+		getBooksByLang();
+	});
+
+
+	
 </script>
 
 <header>
@@ -25,9 +38,9 @@
 		<input type="search" id="inputSearch" placeholder="Поиск..." title="Поиск по ключевым словам" />
 
 		<form>
-			<select name="sphere" id="sphere-select">
+			<select id="sphere-select" bind:value={selectedSphere}>
 				<option value="all"> Все </option>
-				<option value="designer">Дизайнер</option>
+				<option value="design">Дизайнер</option>
 				<option value="frontend">Фронтенд</option>
 				<option value="ml">ML</option>
 				<option value="backend">Бэкенд</option>
@@ -37,7 +50,7 @@
 	<div class="job_market">
 		<div>
 			<ul class="questionnaires">
-				{#each data.summaries as { id, name, image, sphere, description }}
+				{#each filteredSpeheres as { id, name, image, sphere, description }}
 					<li class="questionnaire">
 						<img src={image} alt="" width="384px" height="400px" />
 						<a href="/{id}">{name}, {sphere}</a>
@@ -53,7 +66,6 @@
 	main {
 		.logo {
 			height: 452px;
-			/* background-color: #2c2c2c; */
 			display: flex;
 			justify-content: center;
 			align-items: center;
@@ -109,13 +121,21 @@
 				.questionnaire {
 					display: flex;
 					flex-direction: column;
+					height: 418px;
 					width: 326px;
 					border-style: solid;
 					border-color: rgb(241, 236, 236);
 					padding: 10px;
-					align-items: center;
+					align-items: left;
 					img {
-						padding: 30px;
+						height: 100px;
+						width: 100px;
+						// padding: 30px;
+						// margin: 10px;
+						margin-left: 113px;
+						border-radius: 70px;
+						margin-top: 10px;
+						margin-bottom: 5px;
 					}
 					a {
 						color: aliceblue;
