@@ -209,62 +209,6 @@ const docTemplate = `{
                 }
             }
         },
-        "/team/add/{id_team}/{id_user}": {
-            "post": {
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "team"
-                ],
-                "summary": "AddUserTeam team",
-                "parameters": [
-                    {
-                        "type": "integer",
-                        "description": "add user in team",
-                        "name": "id_team",
-                        "in": "query",
-                        "required": true
-                    },
-                    {
-                        "type": "integer",
-                        "description": "add user in team",
-                        "name": "id_user",
-                        "in": "query",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Successfully add user in team",
-                        "schema": {
-                            "type": "integer"
-                        }
-                    },
-                    "400": {
-                        "description": "Invalid input",
-                        "schema": {
-                            "type": "object",
-                            "additionalProperties": {
-                                "type": "string"
-                            }
-                        }
-                    },
-                    "500": {
-                        "description": "Internal server error",
-                        "schema": {
-                            "type": "object",
-                            "additionalProperties": {
-                                "type": "string"
-                            }
-                        }
-                    }
-                }
-            }
-        },
         "/team/create": {
             "post": {
                 "consumes": [
@@ -291,55 +235,6 @@ const docTemplate = `{
                 "responses": {
                     "200": {
                         "description": "Successfully created team",
-                        "schema": {
-                            "type": "integer"
-                        }
-                    },
-                    "400": {
-                        "description": "Invalid input",
-                        "schema": {
-                            "type": "object",
-                            "additionalProperties": {
-                                "type": "string"
-                            }
-                        }
-                    },
-                    "500": {
-                        "description": "Internal server error",
-                        "schema": {
-                            "type": "object",
-                            "additionalProperties": {
-                                "type": "string"
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/team/{id}": {
-            "get": {
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "team"
-                ],
-                "summary": "Get team",
-                "parameters": [
-                    {
-                        "type": "integer",
-                        "description": "team get",
-                        "name": "id",
-                        "in": "query",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Successfully get team",
                         "schema": {
                             "type": "integer"
                         }
@@ -586,9 +481,6 @@ const docTemplate = `{
                 },
                 "ID_Kap": {
                     "type": "integer"
-                },
-                "about": {
-                    "type": "string"
                 },
                 "name": {
                     "type": "string"

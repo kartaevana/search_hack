@@ -14,4 +14,15 @@ type UserRepo interface {
 type FormRepo interface {
 	Create(ctx context.Context, form models.FormCreate) (int, error)
 	Get(ctx context.Context, id int) (*models.Form, error)
+	GetAll(ctx context.Context) ([]*models.Form, error)
+}
+
+type TeamRepo interface {
+	Create(ctx context.Context, team models.TeamCreate) (int, error)
+	GetTeam(ctx context.Context, id int) (*models.Team, error)
+	AddUserTeam(ctx context.Context, id_user int, id_team int) error
+}
+
+type ApproveRepo interface {
+	Create(ctx context.Context, approve models.ApproveCreate) (int, error)
 }

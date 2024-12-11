@@ -14,6 +14,17 @@ type ServForm struct {
 	log      *log.Logs
 }
 
+func (serv ServForm) GetAll(ctx context.Context) ([]*models.Form, error) {
+	forms, err := serv.FormRepo.GetAll(ctx)
+	if err != nil {
+		serv.log.Error(err.Error())
+		return nil, err
+	}
+
+	serv.log.Info(fmt.Sprintf("get all forms"))
+	return forms, nil
+}
+
 func (serv ServForm) Get(ctx context.Context, id int) (*models.Form, error) {
 	form, err := serv.FormRepo.Get(ctx, id)
 	if err != nil {

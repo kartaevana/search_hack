@@ -14,4 +14,15 @@ type UserServ interface {
 type FormServ interface {
 	Create(ctx context.Context, form models.FormCreate) (int, error)
 	Get(ctx context.Context, id int) (*models.Form, error)
+	GetAll(ctx context.Context) ([]*models.Form, error)
+}
+
+type ApproveServ interface {
+	Create(ctx context.Context, approve models.ApproveCreate) (int, error)
+}
+
+type TeamServ interface {
+	Create(ctx context.Context, team models.TeamCreate) (int, error)
+	GetTeam(ctx context.Context, id int) (*models.Team, error)
+	AddUserTeam(ctx context.Context, id_user int, id_team int) error
 }

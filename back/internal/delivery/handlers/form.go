@@ -77,4 +77,27 @@ func (handler FormHandler) GetForm(g *gin.Context) {
 	}
 
 	g.JSON(http.StatusOK, gin.H{"form": form})
+
+}
+
+// @Summary Get all forms
+// @Tags form
+// @Accept  json
+// @Produce  json
+// @Success 200 {object} []models.Form "Successfully get all forms"
+// @Failure 400 {object} map[string]string "Invalid input"
+// @Failure 500 {object} map[string]string "Internal server error"
+// @Router /form/all [get]
+func (handler FormHandler) GetAllForm(g *gin.Context) {
+	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
+	defer cancel()
+
+	forms, err := handler.service.GetAll(ctx)
+	if err != nil {
+		g.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
+	g.JSON(http.StatusOK, gin.H{"forms": forms})
+
 }

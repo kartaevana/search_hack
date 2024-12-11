@@ -31,6 +31,29 @@ type FormCreate struct {
 
 type Form struct {
 	ID int `json:"ID"`
-	User
+	UserBase
 	FormCreate
+}
+
+type TeamCreate struct {
+	Name    string `json:"name"`
+	ID_Kap  int    `json:"ID_Kap"`
+	ID_Hack int    `json:"ID_Hack"`
+	About   string `json:"about"`
+}
+
+type Team struct {
+	TeamCreate
+	ID      int    `json:"ID"`
+	Members []User `json:"members"`
+}
+
+type ApproveCreate struct {
+	ID_Team int `json:"ID_Team"`
+	ID_Form int `json:"ID_Form"`
+}
+
+type Approve struct {
+	ID int `json:"id"`
+	ApproveCreate
 }

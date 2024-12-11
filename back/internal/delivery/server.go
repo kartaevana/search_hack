@@ -4,9 +4,13 @@ import (
 	"back/cmd/docs"
 	"back/internal/delivery/handlers"
 	"back/internal/delivery/middleware"
+	"back/internal/repository/approve"
 	"back/internal/repository/form"
+	"back/internal/repository/team"
 	"back/internal/repository/user"
+	approveserv "back/internal/service/approve"
 	formserv "back/internal/service/form"
+	teamserv "back/internal/service/team"
 	userserv "back/internal/service/user"
 	"back/pkg/log"
 	"fmt"
@@ -42,6 +46,25 @@ func Start(db *sqlx.DB, log *log.Logs) {
 
 	formRouter.POST("/create", formHandler.CreateForm)
 	formRouter.GET("/:id", formHandler.GetForm)
+	formRouter.GET("/all", formHandler.GetAllForm)
+
+	teamRouter := r.Group("/team")
+
+	teamRepo := team.InitTeamRepository(db)
+	teamService := teamserv.InitTeamService(teamRepo, log)
+	teamHandler := handlers.InitTeamHandler(teamService)
+
+	teamRouter.POST("/create", teamHandler.CreateTeam)
+	teamRouter.GET("/:id", teamHandler.GetTeam)
+	teamRouter.POST("/add/:id_team/:id_user", teamHandler.AddUserTeam)
+
+	approveRouter := r.Group("/approve")
+
+	approveRepo := approve.InitApproveRepository(db)
+	approveService := approveserv.InitApproveService(approveRepo, log)
+	approveHandler := handlers.InitApproveHandler(approveService)
+
+	approveRouter.POST("/create", approveHandler.CreateApprove)
 
 	if err := r.Run("0.0.0.0:8080"); err != nil {
 		panic(fmt.Sprintf("error running client: %v", err.Error()))

@@ -67,7 +67,7 @@ func (handler UserHandler) GetUser(g *gin.Context) {
 		return
 	}
 
-	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
+	ctx, cancel := context.WithTimeout(context.Background(), time.Second*4)
 	defer cancel()
 
 	user, err := handler.service.Get(ctx, aid)

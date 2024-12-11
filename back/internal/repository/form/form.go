@@ -14,6 +14,37 @@ type RepoForm struct {
 	db *sqlx.DB
 }
 
+func (repo RepoForm) GetAll(ctx context.Context) ([]*models.Form, error) {
+	var forms []*models.Form
+	rows, err := repo.db.QueryContext(ctx, `
+        SELECT form.id, form.id_user, form.about, form.photo, form.sphere,
+               COALESCE(users.name, ''), COALESCE(users.sur_name, ''),
+               COALESCE(users.tg, '')
+        FROM form
+        LEFT JOIN users ON form.id_user = users.id
+    `)
+	if err != nil {
+		return nil, fmt.Errorf("database error: %w", err)
+	}
+	defer rows.Close()
+
+	for rows.Next() {
+		var form models.Form
+		err := rows.Scan(&form.ID, &form.ID_User, &form.About, &form.Photo, &form.Sphere,
+			&form.Name, &form.Surname, &form.Tg)
+		if err != nil {
+			return nil, fmt.Errorf("error scanning row: %w", err)
+		}
+		forms = append(forms, &form)
+	}
+
+	if err := rows.Err(); err != nil {
+		return nil, fmt.Errorf("error iterating over rows: %w", err)
+	}
+
+	return forms, nil
+}
+
 func (repo RepoForm) Get(ctx context.Context, id int) (*models.Form, error) {
 	var form models.Form
 	row := repo.db.QueryRowContext(ctx, `select id, id_user, about, photo, sphere from form where id = $1`, id)

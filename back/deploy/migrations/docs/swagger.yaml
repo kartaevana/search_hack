@@ -44,8 +44,6 @@ definitions:
         type: integer
       ID_Kap:
         type: integer
-      about:
-        type: string
       name:
         type: string
     type: object
@@ -198,75 +196,6 @@ paths:
       summary: Create form
       tags:
       - form
-  /team/{id}:
-    get:
-      consumes:
-      - application/json
-      parameters:
-      - description: team get
-        in: query
-        name: id
-        required: true
-        type: integer
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: Successfully get team
-          schema:
-            type: integer
-        "400":
-          description: Invalid input
-          schema:
-            additionalProperties:
-              type: string
-            type: object
-        "500":
-          description: Internal server error
-          schema:
-            additionalProperties:
-              type: string
-            type: object
-      summary: Get team
-      tags:
-      - team
-  /team/add/{id_team}/{id_user}:
-    post:
-      consumes:
-      - application/json
-      parameters:
-      - description: add user in team
-        in: query
-        name: id_team
-        required: true
-        type: integer
-      - description: add user in team
-        in: query
-        name: id_user
-        required: true
-        type: integer
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: Successfully add user in team
-          schema:
-            type: integer
-        "400":
-          description: Invalid input
-          schema:
-            additionalProperties:
-              type: string
-            type: object
-        "500":
-          description: Internal server error
-          schema:
-            additionalProperties:
-              type: string
-            type: object
-      summary: AddUserTeam team
-      tags:
-      - team
   /team/create:
     post:
       consumes:

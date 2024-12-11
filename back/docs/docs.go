@@ -66,49 +66,6 @@ const docTemplate = `{
                 }
             }
         },
-        "/form/all": {
-            "get": {
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "form"
-                ],
-                "summary": "Get all forms",
-                "responses": {
-                    "200": {
-                        "description": "Successfully get all forms",
-                        "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/models.Form"
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "Invalid input",
-                        "schema": {
-                            "type": "object",
-                            "additionalProperties": {
-                                "type": "string"
-                            }
-                        }
-                    },
-                    "500": {
-                        "description": "Internal server error",
-                        "schema": {
-                            "type": "object",
-                            "additionalProperties": {
-                                "type": "string"
-                            }
-                        }
-                    }
-                }
-            }
-        },
         "/form/create": {
             "post": {
                 "consumes": [
@@ -184,162 +141,6 @@ const docTemplate = `{
                 "responses": {
                     "200": {
                         "description": "Successfully get form",
-                        "schema": {
-                            "type": "integer"
-                        }
-                    },
-                    "400": {
-                        "description": "Invalid input",
-                        "schema": {
-                            "type": "object",
-                            "additionalProperties": {
-                                "type": "string"
-                            }
-                        }
-                    },
-                    "500": {
-                        "description": "Internal server error",
-                        "schema": {
-                            "type": "object",
-                            "additionalProperties": {
-                                "type": "string"
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/team/add/{id_team}/{id_user}": {
-            "post": {
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "team"
-                ],
-                "summary": "AddUserTeam team",
-                "parameters": [
-                    {
-                        "type": "integer",
-                        "description": "add user in team",
-                        "name": "id_team",
-                        "in": "query",
-                        "required": true
-                    },
-                    {
-                        "type": "integer",
-                        "description": "add user in team",
-                        "name": "id_user",
-                        "in": "query",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Successfully add user in team",
-                        "schema": {
-                            "type": "integer"
-                        }
-                    },
-                    "400": {
-                        "description": "Invalid input",
-                        "schema": {
-                            "type": "object",
-                            "additionalProperties": {
-                                "type": "string"
-                            }
-                        }
-                    },
-                    "500": {
-                        "description": "Internal server error",
-                        "schema": {
-                            "type": "object",
-                            "additionalProperties": {
-                                "type": "string"
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/team/create": {
-            "post": {
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "team"
-                ],
-                "summary": "Create team",
-                "parameters": [
-                    {
-                        "description": "team create",
-                        "name": "data",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/models.TeamCreate"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Successfully created team",
-                        "schema": {
-                            "type": "integer"
-                        }
-                    },
-                    "400": {
-                        "description": "Invalid input",
-                        "schema": {
-                            "type": "object",
-                            "additionalProperties": {
-                                "type": "string"
-                            }
-                        }
-                    },
-                    "500": {
-                        "description": "Internal server error",
-                        "schema": {
-                            "type": "object",
-                            "additionalProperties": {
-                                "type": "string"
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/team/{id}": {
-            "get": {
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "team"
-                ],
-                "summary": "Get team",
-                "parameters": [
-                    {
-                        "type": "integer",
-                        "description": "team get",
-                        "name": "id",
-                        "in": "query",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Successfully get team",
                         "schema": {
                             "type": "integer"
                         }
@@ -529,38 +330,6 @@ const docTemplate = `{
                 }
             }
         },
-        "models.Form": {
-            "type": "object",
-            "properties": {
-                "ID": {
-                    "type": "integer"
-                },
-                "ID_User": {
-                    "type": "integer"
-                },
-                "about": {
-                    "type": "string"
-                },
-                "email": {
-                    "type": "string"
-                },
-                "name": {
-                    "type": "string"
-                },
-                "photo": {
-                    "type": "string"
-                },
-                "sphere": {
-                    "type": "string"
-                },
-                "surname": {
-                    "type": "string"
-                },
-                "tg": {
-                    "type": "string"
-                }
-            }
-        },
         "models.FormCreate": {
             "type": "object",
             "properties": {
@@ -574,23 +343,6 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "sphere": {
-                    "type": "string"
-                }
-            }
-        },
-        "models.TeamCreate": {
-            "type": "object",
-            "properties": {
-                "ID_Hack": {
-                    "type": "integer"
-                },
-                "ID_Kap": {
-                    "type": "integer"
-                },
-                "about": {
-                    "type": "string"
-                },
-                "name": {
                     "type": "string"
                 }
             }
