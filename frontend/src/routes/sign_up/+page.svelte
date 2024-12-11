@@ -1,29 +1,31 @@
 <script lang="ts">
-	import "../../../app.css";
+	import "../../app.css";
+	import { goto } from "$app/navigation";
+
+
 	let password: string = "";
 	let email: string = "";
 	let name: string = "";
 	let surname: string = "";
 	let tg: string = "";
 
-
 	let selectedValue = "yes"; // Значение по умолчанию
-	function handleSubmit() {
+	async function handleSubmit() {
 		if (selectedValue === "yes") {
 			// Переход на страницу заполнения формы
-			window.location.href = "/project/form";
+			goto("/form");
+			// window.location.href = "/form";
 		} else {
 			// Переход на главную страницу
-			window.location.href = "/project";
+			goto("/");
 		}
 	}
-	// import { onMount } from "svelte";
-
 
 	let id: number;
+	import { api } from "../api.js";
 	async function create_user() {
 		try {
-			let response = await fetch("http://193.227.241.239:8080/user/create", {
+			let response = await fetch(api + "/user/create", {
 				method: "POST",
 				body: JSON.stringify({ PWD: password, email: email, name: name, surname: surname, tg: tg }),
 				headers: {
@@ -37,13 +39,25 @@
 			let obj = await response.json();
 			console.log(obj);
 			id = obj.id;
-			// window.location.href = "/project";
-			// он как-то очень долго грузит следующую страницу. я не уверена, что сделала правильно функцию handleSubmit()
 			handleSubmit();
 		} catch (error) {
 			console.error("Ошибка при запросе:", error);
 		}
 	}
+	// export let data;
+	// const { form } = superForm(data.form);
+
+	// 	import { superForm } from 'sveltekit-superforms';
+
+	// 	const { form, validate } = superForm({
+	//     email: {
+	//       value: '',
+	//       validations: {
+	//         required: true,
+	//         email: true,
+	//       },
+	//     },
+	//   });
 </script>
 
 <header>
@@ -88,6 +102,19 @@
 			<label for="no">нет</label>
 			<input class="choice" id="no" type="radio" name="val" value="no" bind:group={selectedValue} />
 		</fieldset>
+		<!-- <fieldset>
+			<legend>Роль:</legend>
+			<label for="captain">капитан</label>
+			<input
+				class="choice"
+				id="captain"
+				type="radio"
+				name="val"
+				value="captain"
+			/>
+			<label for="notcaptain">нет</label>
+			<input class="choice" id="notcaptain" type="radio" name="val" value="notcaptain" />
+		</fieldset> -->
 
 		<div class="submit">
 			<input type="submit" on:click={create_user} value="Зарегистрироваться" id="submit" />
