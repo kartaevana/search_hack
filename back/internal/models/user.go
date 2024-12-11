@@ -36,10 +36,9 @@ type Form struct {
 }
 
 type TeamCreate struct {
-	Name    string `json:"name"`
-	ID_Kap  int    `json:"ID_Kap"`
-	ID_Hack int    `json:"ID_Hack"`
-	About   string `json:"about"`
+	Name   string `json:"name"`
+	ID_Kap int    `json:"ID_Kap"`
+	About  string `json:"about"`
 }
 
 type Team struct {

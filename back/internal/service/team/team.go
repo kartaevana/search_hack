@@ -29,7 +29,7 @@ func (serv ServTeam) GetTeam(ctx context.Context, id int) (*models.Team, error) 
 		serv.log.Error(err.Error())
 		return nil, err
 	}
-	serv.log.Info(fmt.Sprintf("get form: %v", id))
+	serv.log.Info(fmt.Sprintf("get team: %v", id))
 	return team, nil
 }
 

@@ -15,8 +15,8 @@ type RepoTeam struct {
 
 func (repo RepoTeam) GetTeam(ctx context.Context, id int) (*models.Team, error) {
 	var team models.Team
-	row := repo.db.QueryRowContext(ctx, `select id, name, id_hack, id_kap from team where id = $1`, id)
-	err := row.Scan(&team.ID, &team.Name, &team.ID_Hack, &team.ID_Kap)
+	row := repo.db.QueryRowContext(ctx, `select id, name, about, id_kap from team where id = $1`, id)
+	err := row.Scan(&team.ID, &team.Name, &team.About, &team.ID_Kap)
 	if err != nil {
 		if err == sql.ErrNoRows {
 			return nil, fmt.Errorf("form not found")
@@ -53,8 +53,8 @@ func (repo RepoTeam) Create(ctx context.Context, team models.TeamCreate) (int, e
 	if err != nil {
 		return 0, err
 	}
-	row := transaction.QueryRowxContext(ctx, `insert into team (id_hack, name, id_kap) values ($1, $2, $3) returning id`,
-		team.ID_Hack, team.Name, team.ID_Kap)
+	row := transaction.QueryRowxContext(ctx, `insert into team (about, name, id_kap) values ($1, $2, $3) returning id`,
+		team.About, team.Name, team.ID_Kap)
 	err = row.Scan(&id)
 	if err != nil {
 		if rbErr := transaction.Rollback(); rbErr != nil {

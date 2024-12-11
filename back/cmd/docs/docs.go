@@ -581,9 +581,6 @@ const docTemplate = `{
         "models.TeamCreate": {
             "type": "object",
             "properties": {
-                "ID_Hack": {
-                    "type": "integer"
-                },
                 "ID_Kap": {
                     "type": "integer"
                 },

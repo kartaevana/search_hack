@@ -40,8 +40,6 @@ definitions:
     type: object
   models.TeamCreate:
     properties:
-      ID_Hack:
-        type: integer
       ID_Kap:
         type: integer
       about:
