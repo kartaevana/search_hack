@@ -11,16 +11,17 @@
 	let selectedValue = "yes";
 	async function handleSubmit() {
 		if (selectedValue === "yes") {
-			goto("/form");
+			goto(`/form/${id}`);
 		} else {
 			goto("/");
 		}
 	}
 
 	function validateForm() {
-		const emailPattern = /^[^s@]+@[^s@]+\.[^s@]+$/; 
+		// const emailPattern = /^[^s@]+@[^s@]+\.[^s@]+$/;
 		return (
-			emailPattern.test(email) &&
+			// emailPattern.test(email) &&
+			email.length >= 6 && 
 			password.length >= 6 && 
 			name.trim() !== "" && 
 			surname.trim() !== "" &&

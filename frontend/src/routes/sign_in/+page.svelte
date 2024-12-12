@@ -6,7 +6,8 @@
 	let email: string = "";
 
 	function validateForm() {
-		const emailPattern = /^[^s@]+@[^s@]+\.[^s@]+$/;
+		// const emailPattern = /^[^s@]+@[^s@]+\.[^s@]+$/;
+        const emailPattern = /^[^s@]+@[^s@]+\.[^s@]+$/;
 		return emailPattern.test(email) && password.length >= 6;
 	}
 
@@ -14,7 +15,7 @@
 	import { api } from "../api.js";
 	async function login_user() {
 		if (!validateForm()) {
-			event.preventDefault();
+			// event.preventDefault();
 			alert("Пожалуйста, заполните все поля правильно."); // Сообщение об ошибке
 			return;
 		} else {
