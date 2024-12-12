@@ -6,8 +6,7 @@
 	let email: string = "";
 
 	function validateForm() {
-		// const emailPattern = /^[^s@]+@[^s@]+\.[^s@]+$/;
-        const emailPattern = /^[^s@]+@[^s@]+\.[^s@]+$/;
+		const emailPattern = /^[^s@]+@[^s@]+\.[^s@]+$/;
 		return emailPattern.test(email) && password.length >= 6;
 	}
 
@@ -15,8 +14,7 @@
 	import { api } from "../api.js";
 	async function login_user() {
 		if (!validateForm()) {
-			// event.preventDefault();
-			alert("Пожалуйста, заполните все поля правильно."); // Сообщение об ошибке
+			alert("Пожалуйста, заполните все поля правильно.");
 			return;
 		} else {
 			try {
@@ -32,9 +30,10 @@
 				}
 
 				let obj = await response.json();
-				console.log(obj);
-				goto("/");
+				console.log(obj.id)
 				id = obj.id;
+				// goto('main/{id}');
+				goto(`/main/${id}`);
 			} catch (error) {
 				console.error("Ошибка при запросе:", error);
 			}
@@ -43,7 +42,9 @@
 </script>
 
 <header>
-	<img height="24px" src="/cover.png" alt="" style="margin-left:15px" />
+	<a href="/">
+		<img height="24px" src="/cover.png" alt="" style="margin-left:15px" />
+	</a>
 </header>
 <h1>Вход</h1>
 <main>
@@ -63,7 +64,6 @@
 			<input type="submit" on:click={login_user} value="Войти" id="submit" />
 		</div>
 	</form>
-	<!-- <div><a href="">Забыли пароль?</a></div> -->
 </main>
 
 <style lang="scss">

@@ -11,9 +11,9 @@ export async function load({ params }: any) {
 	});
 	const obj = await response.json();
 	const data = obj.team; // Извлекаем команду из ответа
-    console.log(data);
+	console.log(data);
 
 	return {
-			team: data
+		team: data
 	};
 }

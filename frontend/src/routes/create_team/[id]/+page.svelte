@@ -7,7 +7,6 @@
 	let description: string = "";
 
 	function validateForm() {
-		// const emailPattern = /^[^s@]+@[^s@]+\.[^s@]+$/;
 		return description.trim() !== "" && name.trim() !== "";
 	}
 
@@ -15,8 +14,7 @@
 	let id = data.user.ID;
 	async function create_team() {
 		if (!validateForm()) {
-			// event.preventDefault();
-			alert("Пожалуйста, заполните все поля правильно."); // Сообщение об ошибке
+			alert("Пожалуйста, заполните все поля правильно.");
 			return;
 		} else {
 			try {
@@ -33,6 +31,7 @@
 
 				let obj = await response.json();
 				console.log(obj);
+				id = obj.id
 				goto(`/captain_main/${id}`); //id команды!!
 				id = obj.id;
 			} catch (error) {
@@ -43,7 +42,9 @@
 </script>
 
 <header>
-	<img height="24px" src="/cover.png" alt="" style="margin-left:15px" />
+	<a href="/">
+		<img height="24px" src="/cover.png" alt="" style="margin-left:15px" />
+	</a>
 </header>
 <h1>Создание команды</h1>
 <main>
@@ -69,7 +70,6 @@
 			<input type="submit" on:click={create_team} value="Создать команду" id="submit" />
 		</div>
 	</form>
-	<!-- <div><a href="">Забыли пароль?</a></div> -->
 </main>
 
 <style lang="scss">

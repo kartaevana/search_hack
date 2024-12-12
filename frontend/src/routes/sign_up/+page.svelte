@@ -13,19 +13,18 @@
 		if (selectedValue === "yes") {
 			goto(`/form/${id}`);
 		} else {
-			goto("/");
+			goto(`/main/${id}`);
+			
 		}
 	}
 
 	function validateForm() {
-		// const emailPattern = /^[^s@]+@[^s@]+\.[^s@]+$/;
 		return (
-			// emailPattern.test(email) &&
-			email.length >= 6 && 
-			password.length >= 6 && 
-			name.trim() !== "" && 
+			email.length >= 6 &&
+			password.length >= 6 &&
+			name.trim() !== "" &&
 			surname.trim() !== "" &&
-			tg.trim() !== "" 
+			tg.trim() !== ""
 		);
 	}
 
@@ -33,7 +32,7 @@
 	import { api } from "../api.js";
 	async function create_user() {
 		if (!validateForm()) {
-			alert("Пожалуйста, заполните все поля правильно."); // Сообщение об ошибке
+			alert("Пожалуйста, заполните все поля правильно.");
 			return;
 		} else {
 			let response = await fetch(api + "/user/create", {
@@ -48,20 +47,18 @@
 			}
 
 			let obj = await response.json();
-			// console.log(obj);
+
 			id = obj.id;
 			handleSubmit();
-			console.log("Пользователь создан:", { email, password, name, surname, tg });
+			
 		}
 	}
-	// import { onMount } from "svelte";
-	// onMount(() => {
-	// 	isFormValid();
-	// });
 </script>
 
 <header>
-	<img height="24px" src="/cover.png" alt="" style="margin-left:15px" />
+	<a href="/">
+		<img height="24px" src="/cover.png" alt="" style="margin-left:15px" />
+	</a>
 </header>
 <h1>Регистрация</h1>
 <main>
@@ -104,8 +101,7 @@
 		</fieldset>
 
 		<div class="submit">
-			<!-- on:click={create_user} -->
-			<input type="submit" value="Зарегистрироваться" on:click={create_user} id="submit"/>
+			<input type="submit" value="Зарегистрироваться" on:click={create_user} id="submit" />
 		</div>
 	</form>
 </main>

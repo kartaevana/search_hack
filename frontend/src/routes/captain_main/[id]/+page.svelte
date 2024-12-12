@@ -1,7 +1,6 @@
 <script lang="ts">
 	import "../../../app.css";
 	import { goto } from "$app/navigation";
-	// export let data;
 
 	let forms: Array<{
 		ID: number;
@@ -25,7 +24,6 @@
 		});
 		let obj = await response.json();
 		console.log(obj);
-		// forms = obj;
 		forms = obj.forms;
 		console.log(forms);
 	}
@@ -59,41 +57,36 @@
 		getFormBySphere();
 	});
 
-	
-	// function inviteToTeam(userId: number) {
-	// 	id_user = userId;
-    // }
-
-
 	export let data;
 	let id = data.team.ID;
 	let id_user: number;
 
 	async function add_to_team(userId: number) {
 		id_user = userId;
-		let response = await fetch(api + "/team/add/{id_team}/{id_user}?id_team=" + id + "&id_user=" + id_user, {
-			method: "POST",
-			body: JSON.stringify({ id_team: id, id_use: id_user }),
-			headers: {
-				"Content-Type": "application/json"
+		let response = await fetch(
+			api + "/team/add/{id_team}/{id_user}?id_team=" + id + "&id_user=" + id_user,
+			{
+				method: "POST",
+				body: JSON.stringify({ id_team: id, id_use: id_user }),
+				headers: {
+					"Content-Type": "application/json"
+				}
 			}
-		});
+		);
 
 		let obj = await response.json();
 		console.log(obj);
-		// goto("/");
-		// id = obj.id;
 	}
 </script>
-<!-- надо сделать так, чтобы не показывались люди, которые уже  команде -->
+
+<!-- надо сделать так, чтобы не показывались люди, которые уже в команде -->
 <header>
-	<img height="24px" src="/cover.png" alt="" style="margin-left:15px" />
-	<!-- <button on:click={}>Создать анкету</button> -->
+	<a href="/">
+		<img height="24px" src="/cover.png" alt="" style="margin-left:15px" />
+	</a>
 	<div>
-		<a href="/form">Создать анкету</a>
 		<a href="#job_market">Рынок вакансий</a>
-		<a href="">Мои анкеты</a>
-		<a href="/ceate_team">Моя команда</a>
+		<a href='/team/{id}'>Моя команда</a> 
 	</div>
 </header>
 <main>
@@ -109,7 +102,6 @@
 
 		<form>
 			<select id="sphere-select" bind:value={selectedSphere}>
-				<!-- <select id="sphere-select"> -->
 				<option value="all"> Все </option>
 				<option value="design">Дизайнер</option>
 				<option value="frontend">Фронтенд</option>
@@ -124,7 +116,7 @@
 				{#each forms as { ID, name, photo, about, sphere }}
 					<li class="questionnaire">
 						<img src={photo} alt="" width="384px" height="400px" />
-						<a href="/{ID}">{ID}, {name}, {sphere}</a>
+						<h3>{name}, {sphere}</h3>
 						<p>{about.substring(0, 500)}</p>
 						<button on:click={() => add_to_team(ID)}>Пригласить в команду</button>
 						<!-- on:click={} -->

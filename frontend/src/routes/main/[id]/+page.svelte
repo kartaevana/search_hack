@@ -1,10 +1,63 @@
 <script lang="ts">
 	import "../../../app.css";
-	import { goto } from "$app/navigation";
-
-	import { onMount } from "svelte";
+	import "../../api";
 	export let data;
-	let id = data.team.ID;
+	let id = data.user.ID;
+
+	let forms: Array<{
+		ID: number;
+		name: string;
+		surname: string;
+		email: string;
+		tg: string;
+		ID_User: number;
+		photo: string;
+		about: string;
+		sphere: string;
+	}> = [];
+	import { onMount } from "svelte";
+	import { api } from "../../api.js";
+
+	async function list_forms() {
+		let response = await fetch(api + "/form/all", {
+			headers: {
+				"Content-Type": "application/json"
+			}
+		});
+		let obj = await response.json();
+		console.log(obj);
+		forms = obj.forms;
+		console.log(forms);
+	}
+
+	onMount(() => {
+		list_forms();
+	});
+
+	let sphere = ["all", "frontend", "backend", "ml", "design"];
+	let filteredSpeheres: Array<{
+		ID: number;
+		name: string;
+		surname: string;
+		email: string;
+		tg: string;
+		ID_User: number;
+		photo: string;
+		about: string;
+		sphere: string;
+	}> = [];
+	let selectedSphere = "all";
+
+	$: if (selectedSphere) getFormBySphere();
+	const getFormBySphere = () => {
+		if (selectedSphere === "all") {
+			return (filteredSpeheres = forms);
+		}
+		return (filteredSpeheres = forms.filter(summary => summary.sphere === selectedSphere));
+	};
+	onMount(() => {
+		getFormBySphere();
+	});
 </script>
 
 <header>
@@ -12,7 +65,10 @@
 		<img height="24px" src="/cover.png" alt="" style="margin-left:15px" />
 	</a>
 	<div>
-		<a href="/captain_main/{id}">Рынок вакансий</a>
+		<a href='/form/{id}'>Создать анкету</a>
+		<a href="#job_market">Рынок вакансий</a>
+
+		<a href='/create_team/{id}'>Создать команду</a>
 	</div>
 </header>
 <main>
@@ -22,16 +78,26 @@
 	</div>
 
 	<div class="subheading">
-		<h3>Моя команда</h3>
+		<h3>Рынок вакансий</h3>
+
+		<form>
+			<select id="sphere-select" bind:value={selectedSphere}>
+				<option value="all"> Все </option>
+				<option value="design">Дизайнер</option>
+				<option value="frontend">Фронтенд</option>
+				<option value="ml">ML</option>
+				<option value="backend">Бэкенд</option>
+			</select>
+		</form>
 	</div>
 	<div class="job_market" id="job_market">
 		<div>
 			<ul class="questionnaires">
-				{#each data.team.members as { ID, name, surname, email, tg }}
+				{#each forms as { ID, name, photo, about, sphere }}
 					<li class="questionnaire">
-						<h3>{name}, {surname}</h3>
-						<p>{email}</p>
-						<p>{tg}</p>
+						<img src={photo} alt="" width="384px" height="400px" />
+						<h3>{name}, {sphere}</h3>
+						<p>{about.substring(0, 500)}</p>
 					</li>
 				{/each}
 			</ul>
@@ -103,7 +169,7 @@
 			}
 		}
 		.job_market {
-			min-height: 500px;
+			min-height: 1000px;
 			display: flex;
 			flex-direction: row;
 			background-color: #1e1e1e;
@@ -118,7 +184,7 @@
 				.questionnaire {
 					display: flex;
 					flex-direction: column;
-					height: 218px;
+					height: 418px;
 					width: 326px;
 					border-style: solid;
 					border-color: rgb(241, 236, 236);
@@ -127,6 +193,7 @@
 					img {
 						height: 100px;
 						width: 100px;
+
 						margin-left: 113px;
 						border-radius: 70px;
 						margin-top: 10px;
@@ -136,9 +203,6 @@
 						margin-top: 7px;
 						color: aliceblue;
 						font-size: 25px;
-					}
-					button {
-						margin-top: auto;
 					}
 				}
 			}

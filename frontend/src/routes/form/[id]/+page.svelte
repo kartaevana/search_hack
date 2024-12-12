@@ -24,7 +24,7 @@
 	let sphere: string = "";
 	import { api } from "../../api.js";
 	async function handleSubmit() {
-		goto("/");
+		goto("/main/${id}");
 	}
 	let id = data.user.ID;
 
@@ -53,7 +53,9 @@
 </script>
 
 <header>
-	<img height="24px" src="/cover.png" alt="" style="margin-left:15px" />
+	<a href="/">
+		<img height="24px" src="/cover.png" alt="" style="margin-left:15px" />
+	</a>
 </header>
 <h1>Создание анкеты</h1>
 <main>
@@ -139,7 +141,6 @@
 			background-color: #1e1e1e;
 			width: 977px;
 			height: 734px;
-			// margin: 10px;
 			margin-bottom: 30px;
 
 			.question {
