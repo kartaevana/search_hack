@@ -30,7 +30,7 @@
 
 	async function create_form() {
 		if (!validateForm()) {
-			alert("Пожалуйста, заполните все поля правильно."); 
+			alert("Пожалуйста, заполните все поля правильно.");
 			return;
 		} else {
 			let response = await fetch(api + "/form/create", {
@@ -47,11 +47,11 @@
 			});
 			let obj = await response.json();
 			console.log(obj);
-			handleSubmit()
+			handleSubmit();
 		}
 	}
-
 </script>
+
 <header>
 	<img height="24px" src="/cover.png" alt="" style="margin-left:15px" />
 </header>
@@ -61,14 +61,24 @@
 		<div class="question">
 			<div class="question">
 				<div><label for="name">Имя</label></div>
-				<div><input bind:value={data.user.name } placeholder="Иван" id="name" type="text" readonly/></div>
+				<div>
+					<input bind:value={data.user.name} placeholder="Иван" id="name" type="text" readonly />
+				</div>
 			</div>
 			<div class="question">
 				<div><label for="surname">Фамилия</label></div>
-				<div><input bind:value={data.user.surname} placeholder="Иванов" id="surname" type="text" readonly/></div>
+				<div>
+					<input
+						bind:value={data.user.surname}
+						placeholder="Иванов"
+						id="surname"
+						type="text"
+						readonly
+					/>
+				</div>
 			</div>
-			<div class ="idk"><label for="role">Роль</label></div>
-			<div class ="idk">
+			<div class="idk"><label for="role">Роль</label></div>
+			<div class="idk">
 				<select id="roles" name="roles" bind:value={sphere}>
 					<option value="frontend">фронтенд</option>
 					<option value="backend">бэкенд</option>
@@ -146,7 +156,7 @@
 					height: 40px;
 					margin-top: 10px;
 				}
-				.idk{
+				.idk {
 					margin-left: 9px;
 				}
 
@@ -163,10 +173,10 @@
 					cursor: pointer;
 					width: 150px;
 					height: auto;
-					border: 2px solid transparent; 
+					border: 2px solid transparent;
 				}
 				img.selected {
-					border: 2px solid rgb(228, 114, 86); 
+					border: 2px solid rgb(228, 114, 86);
 				}
 			}
 			#submit {

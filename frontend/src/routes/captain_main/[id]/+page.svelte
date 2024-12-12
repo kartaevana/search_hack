@@ -1,36 +1,98 @@
 <script lang="ts">
-	import "../../app.css";
-	export let data;
+	import "../../../app.css";
+	import { goto } from "$app/navigation";
+	// export let data;
+
+	let forms: Array<{
+		ID: number;
+		name: string;
+		surname: string;
+		email: string;
+		tg: string;
+		ID_User: number;
+		photo: string;
+		about: string;
+		sphere: string;
+	}> = [];
+	import { onMount } from "svelte";
+	import { api } from "../../api";
+
+	async function list_forms() {
+		let response = await fetch(api + "/form/all", {
+			headers: {
+				"Content-Type": "application/json"
+			}
+		});
+		let obj = await response.json();
+		console.log(obj);
+		// forms = obj;
+		forms = obj.forms;
+		console.log(forms);
+	}
+
+	onMount(() => {
+		list_forms();
+	});
 
 	let sphere = ["all", "frontend", "backend", "ml", "design"];
 	let filteredSpeheres: Array<{
-		id: number;
+		ID: number;
 		name: string;
-		image: string;
+		surname: string;
+		email: string;
+		tg: string;
+		ID_User: number;
+		photo: string;
+		about: string;
 		sphere: string;
-		description: string;
 	}> = [];
 	let selectedSphere = "all";
-	import { onMount } from "svelte";
 
 	$: if (selectedSphere) getFormBySphere();
 	const getFormBySphere = () => {
 		if (selectedSphere === "all") {
-			return (filteredSpeheres = data.summaries);
+			return (filteredSpeheres = forms);
 		}
-		return (filteredSpeheres = data.summaries.filter(summary => summary.sphere === selectedSphere));
+		return (filteredSpeheres = forms.filter(summary => summary.sphere === selectedSphere));
 	};
 	onMount(() => {
 		getFormBySphere();
 	});
-</script>
 
+	let id_user: number;
+	// function inviteToTeam(userId: number) {
+	// 	id_user = userId;
+    // }
+
+
+	export let data;
+	let id = data.user.ID;
+	
+	async function add_to_team(userId: number) {
+		id_user = userId;
+		let response = await fetch(api + "/team/add/{id_team}/{id_user}?id_team=" + id + "&id_user=" + id_user, {
+			method: "POST",
+			body: JSON.stringify({ id_team: id, id_use: id_user }),
+			headers: {
+				"Content-Type": "application/json"
+			}
+		});
+
+		let obj = await response.json();
+		console.log(obj);
+		// goto("/");
+		// id = obj.id;
+	}
+</script>
 <header>
 	<img height="24px" src="/cover.png" alt="" style="margin-left:15px" />
+	<!-- <button on:click={}>Создать анкету</button> -->
 	<div>
-	<a href="/form">Создать анкету</a>
-	<a href="#job_market">Рынок вакансий</a>
-	<a href="">Мои анкеты</a></div>
+		<a href="/form">Создать анкету</a>
+		<a href="#job_market">Рынок вакансий</a>
+		<a href="">Мои анкеты</a>
+		<a href="/ceate_team">Моя команда</a>
+	</div>
 </header>
 <main>
 	<div class="logo">
@@ -45,6 +107,7 @@
 
 		<form>
 			<select id="sphere-select" bind:value={selectedSphere}>
+				<!-- <select id="sphere-select"> -->
 				<option value="all"> Все </option>
 				<option value="design">Дизайнер</option>
 				<option value="frontend">Фронтенд</option>
@@ -56,13 +119,13 @@
 	<div class="job_market" id="job_market">
 		<div>
 			<ul class="questionnaires">
-				{#each filteredSpeheres as { id, name, image, sphere, description }}
+				{#each forms as { ID, name, photo, about, sphere }}
 					<li class="questionnaire">
-						<img src={image} alt="" width="384px" height="400px" />
-						<a href="/{id}" >{name}, {sphere}</a>
-						<p>{description.substring(0, 500)}</p>
-                        <button>Пригласить в команду</button> <!-- on:click={} -->
-
+						<img src={photo} alt="" width="384px" height="400px" />
+						<a href="/{ID}">{name}, {sphere}</a>
+						<p>{about.substring(0, 500)}</p>
+						<button on:click={() => add_to_team(ID)}>Пригласить в команду</button>
+						<!-- on:click={} -->
 					</li>
 				{/each}
 			</ul>
@@ -71,25 +134,25 @@
 </main>
 
 <style lang="scss">
-	header{
+	header {
 		display: flex;
 		justify-content: space-between;
-		div{
+		div {
 			display: flex;
 			flex-direction: row;
-			a{
-			width: 144px;
-			height: 32px;
-			background-color:  rgba(44, 44, 44, 1);
-			margin: 7px;
-			display: flex;
-			justify-content: center;
-			align-items: center;
-			color: aliceblue;
-			// border-style: solid;
-			border-radius: 8px;
-			// border-color: rgb(241, 236, 236);
-		}
+			a {
+				width: 144px;
+				height: 32px;
+				background-color: rgba(44, 44, 44, 1);
+				margin: 7px;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				color: aliceblue;
+				// border-style: solid;
+				border-radius: 8px;
+				// border-color: rgb(241, 236, 236);
+			}
 		}
 	}
 	main {
@@ -136,7 +199,7 @@
 			}
 		}
 		.job_market {
-			height: 2148px;
+			min-height: 1000px;
 			display: flex;
 			flex-direction: row;
 			background-color: #1e1e1e;
@@ -167,14 +230,14 @@
 						margin-top: 10px;
 						margin-bottom: 5px;
 					}
-					a { 
+					a {
 						margin-top: 7px;
 						color: aliceblue;
 						font-size: 25px;
 					}
-                    button{
-                        margin-top: auto;
-                    }
+					button {
+						margin-top: auto;
+					}
 				}
 			}
 		}

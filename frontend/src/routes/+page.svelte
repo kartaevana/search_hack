@@ -70,7 +70,7 @@
 		<a href="/form">Создать анкету</a>
 		<a href="#job_market">Рынок вакансий</a>
 		<a href="">Мои анкеты</a>
-		<a href="">Создать команду</a>
+		<a href="/ceate_team">Создать команду</a>
 	</div>
 </header>
 <main>
@@ -98,15 +98,6 @@
 	<div class="job_market" id="job_market">
 		<div>
 			<ul class="questionnaires">
-				<!-- {#each filteredSpeheres as { id, name, image, sphere, description }}
-					<li class="questionnaire">
-						<img src={image} alt="" width="384px" height="400px" />
-						<a href="/{id}" >{name}, {sphere}</a>
-						<p>{description.substring(0, 500)}</p>
-					</li>
-				{/each} -->
-				<!-- {#each forms as { id, ID_User, about, email, name, photo, sphere, surname, tg }} -->
-				
 				{#each forms as { ID, name, photo, about, sphere }}
 					<li class="questionnaire">
 						<img src={photo} alt="" width="384px" height="400px" />
@@ -185,7 +176,7 @@
 			}
 		}
 		.job_market {
-			height: 2148px;
+			min-height: 1000px;
 			display: flex;
 			flex-direction: row;
 			background-color: #1e1e1e;
