@@ -24,7 +24,7 @@
 	let sphere: string = "";
 	import { api } from "../../api.js";
 	async function handleSubmit() {
-		goto("/main/${id}");
+		goto(`/main/${id}`);
 	}
 	let id = data.user.ID;
 
