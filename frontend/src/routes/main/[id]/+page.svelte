@@ -25,15 +25,28 @@
 			}
 		});
 		let obj = await response.json();
-		console.log(obj);
-		forms = obj.forms;
-		console.log(forms);
+		forms = obj.forms; // Заполнение массива forms загруженными данными
+		getFormBySphere(); // Обновление фильтрованных данных после загрузки
 	}
+
+	// Функция для фильтрации данных по выбранной сфере
+	const getFormBySphere = () => {
+		if (selectedSphere === "all") {
+			filteredSpeheres = forms; // Если выбран фильтр "all", показываем все формы
+		} else {
+			filteredSpeheres = forms.filter(summary => summary.sphere === selectedSphere); // Фильтрация по сфере
+		}
+	};
 
 	onMount(() => {
 		list_forms();
 	});
-
+	let filters = {
+		designer: false,
+		frontend: false,
+		backend: false,
+		ml: false
+	};
 	let sphere = ["all", "frontend", "backend", "ml", "design"];
 	let filteredSpeheres: Array<{
 		ID: number;
@@ -48,15 +61,12 @@
 	}> = [];
 	let selectedSphere = "all";
 
-	$: if (selectedSphere) getFormBySphere();
-	const getFormBySphere = () => {
-		if (selectedSphere === "all") {
-			return (filteredSpeheres = forms);
-		}
-		return (filteredSpeheres = forms.filter(summary => summary.sphere === selectedSphere));
-	};
+	// Слежение за изменением selectedSphere, чтобы применить фильтрацию
+	$: selectedSphere, getFormBySphere();
+
+	// Загружаем формы при монтировании компонента
 	onMount(() => {
-		getFormBySphere();
+		list_forms();
 	});
 </script>
 
@@ -65,10 +75,10 @@
 		<img height="24px" src="/cover.png" alt="" style="margin-left:15px" />
 	</a>
 	<div>
-		<a href='/form/{id}'>Создать анкету</a>
+		<a href="/form/{id}">Создать анкету</a>
 		<a href="#job_market">Рынок вакансий</a>
 
-		<a href='/create_team/{id}'>Создать команду</a>
+		<a href="/create_team/{id}">Создать команду</a>
 	</div>
 </header>
 <main>
@@ -93,7 +103,7 @@
 	<div class="job_market" id="job_market">
 		<div>
 			<ul class="questionnaires">
-				{#each forms as { ID, name, photo, about, sphere }}
+				{#each filteredSpeheres as { ID, name, photo, about, sphere }}
 					<li class="questionnaire">
 						<img src={photo} alt="" width="384px" height="400px" />
 						<h3>{name}, {sphere}</h3>
