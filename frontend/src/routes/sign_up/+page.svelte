@@ -2,29 +2,39 @@
 	import "../../app.css";
 	import { goto } from "$app/navigation";
 
-
 	let password: string = "";
 	let email: string = "";
 	let name: string = "";
 	let surname: string = "";
 	let tg: string = "";
 
-	let selectedValue = "yes"; // Значение по умолчанию
+	let selectedValue = "yes";
 	async function handleSubmit() {
 		if (selectedValue === "yes") {
-			// Переход на страницу заполнения формы
 			goto("/form");
-			// window.location.href = "/form";
 		} else {
-			// Переход на главную страницу
 			goto("/");
 		}
+	}
+
+	function validateForm() {
+		const emailPattern = /^[^s@]+@[^s@]+\.[^s@]+$/; 
+		return (
+			emailPattern.test(email) &&
+			password.length >= 6 && 
+			name.trim() !== "" && 
+			surname.trim() !== "" &&
+			tg.trim() !== "" 
+		);
 	}
 
 	let id: number;
 	import { api } from "../api.js";
 	async function create_user() {
-		try {
+		if (!validateForm()) {
+			alert("Пожалуйста, заполните все поля правильно."); // Сообщение об ошибке
+			return;
+		} else {
 			let response = await fetch(api + "/user/create", {
 				method: "POST",
 				body: JSON.stringify({ PWD: password, email: email, name: name, surname: surname, tg: tg }),
@@ -37,27 +47,16 @@
 			}
 
 			let obj = await response.json();
-			console.log(obj);
+			// console.log(obj);
 			id = obj.id;
 			handleSubmit();
-		} catch (error) {
-			console.error("Ошибка при запросе:", error);
+			console.log("Пользователь создан:", { email, password, name, surname, tg });
 		}
 	}
-	// export let data;
-	// const { form } = superForm(data.form);
-
-	// 	import { superForm } from 'sveltekit-superforms';
-
-	// 	const { form, validate } = superForm({
-	//     email: {
-	//       value: '',
-	//       validations: {
-	//         required: true,
-	//         email: true,
-	//       },
-	//     },
-	//   });
+	// import { onMount } from "svelte";
+	// onMount(() => {
+	// 	isFormValid();
+	// });
 </script>
 
 <header>
@@ -65,7 +64,7 @@
 </header>
 <h1>Регистрация</h1>
 <main>
-	<form action="">
+	<form>
 		<div class="question">
 			<div><label for="email">Почта</label></div>
 			<div><input bind:value={email} placeholder="1234@mail.ru" id="email" type="email" /></div>
@@ -102,22 +101,10 @@
 			<label for="no">нет</label>
 			<input class="choice" id="no" type="radio" name="val" value="no" bind:group={selectedValue} />
 		</fieldset>
-		<!-- <fieldset>
-			<legend>Роль:</legend>
-			<label for="captain">капитан</label>
-			<input
-				class="choice"
-				id="captain"
-				type="radio"
-				name="val"
-				value="captain"
-			/>
-			<label for="notcaptain">нет</label>
-			<input class="choice" id="notcaptain" type="radio" name="val" value="notcaptain" />
-		</fieldset> -->
 
 		<div class="submit">
-			<input type="submit" on:click={create_user} value="Зарегистрироваться" id="submit" />
+			<!-- on:click={create_user} -->
+			<input type="submit" value="Зарегистрироваться" on:click={create_user} id="submit"/>
 		</div>
 	</form>
 </main>
@@ -175,6 +162,11 @@
 				width: 310px;
 				border-radius: 8px;
 				color: black;
+			}
+			#submit:disabled {
+				background-color: gray;
+				color: lightgray;
+				cursor: not-allowed;
 			}
 		}
 	}
