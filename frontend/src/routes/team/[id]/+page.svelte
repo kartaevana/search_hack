@@ -3,98 +3,45 @@
 	import { goto } from "$app/navigation";
 	// export let data;
 
-	let forms: Array<{
-		ID: number;
-		name: string;
-		surname: string;
-		email: string;
-		tg: string;
-		ID_User: number;
-		photo: string;
-		about: string;
-		sphere: string;
-	}> = [];
 	import { onMount } from "svelte";
 	import { api } from "../../api";
 
-	async function list_forms() {
-		let response = await fetch(api + "/form/all", {
-			headers: {
-				"Content-Type": "application/json"
-			}
-		});
-		let obj = await response.json();
-		console.log(obj);
-		// forms = obj;
-		forms = obj.forms;
-		console.log(forms);
-	}
+	// let id_user: number;
 
-	onMount(() => {
-		list_forms();
-	});
+	export let data;
+	let id = data.team.ID;
 
-	let sphere = ["all", "frontend", "backend", "ml", "design"];
-	let filteredSpeheres: Array<{
+	let members: Array<{
 		ID: number;
 		name: string;
 		surname: string;
 		email: string;
 		tg: string;
-		ID_User: number;
-		photo: string;
-		about: string;
-		sphere: string;
 	}> = [];
-	let selectedSphere = "all";
-
-	$: if (selectedSphere) getFormBySphere();
-	const getFormBySphere = () => {
-		if (selectedSphere === "all") {
-			return (filteredSpeheres = forms);
+	`${api}/team/${id}`;
+	async function get_team() {
+		try {
+			const response = await fetch(`${api}/team/${id}`, {
+				method: "POST", // или 'PUT'
+				body: JSON.stringify(data), // данные могут быть 'строкой' или {объектом}!
+				headers: {
+					"Content-Type": "application/json"
+				}
+			});
+			const json = await response.json();
+			console.log("Успех:", JSON.stringify(json));
+		} catch (error) {
+			console.error("Ошибка:", error);
 		}
-		return (filteredSpeheres = forms.filter(summary => summary.sphere === selectedSphere));
-	};
-	onMount(() => {
-		getFormBySphere();
-	});
-
-	
-	// function inviteToTeam(userId: number) {
-	// 	id_user = userId;
-    // }
-
-
-	export let data;
-	let id = data.team.ID;
-	let id_user: number;
-
-	async function add_to_team(userId: number) {
-		id_user = userId;
-		let response = await fetch(api + "/team/add/{id_team}/{id_user}?id_team=" + id + "&id_user=" + id_user, {
-			method: "POST",
-			body: JSON.stringify({ id_team: id, id_use: id_user }),
-			headers: {
-				"Content-Type": "application/json"
-			}
-		});
-
-		let obj = await response.json();
-		console.log(obj);
-		// goto("/");
-		// id = obj.id;
 	}
+	// onMount(() => {
+	//     get_team();
+	// });
 </script>
-<!-- надо сделать так, чтобы не показывались люди, которые уже  команде -->
+
 <header>
 	<img height="24px" src="/cover.png" alt="" style="margin-left:15px" />
 	<!-- <button on:click={}>Создать анкету</button> -->
-	<div>
-		<a href="/form">Создать анкету</a>
-		<a href="#job_market">Рынок вакансий</a>
-		<a href="">Мои анкеты</a>
-		<a href="/ceate_team">Моя команда</a>
-	</div>
 </header>
 <main>
 	<div class="logo">
@@ -103,13 +50,10 @@
 	</div>
 
 	<div class="subheading">
-		<h3>Рынок вакансий</h3>
-
-		<input type="search" id="inputSearch" placeholder="Поиск..." title="Поиск по ключевым словам" />
+		<h3>Моя команда</h3>
 
 		<form>
-			<select id="sphere-select" bind:value={selectedSphere}>
-				<!-- <select id="sphere-select"> -->
+			<select id="sphere-select">
 				<option value="all"> Все </option>
 				<option value="design">Дизайнер</option>
 				<option value="frontend">Фронтенд</option>
@@ -121,12 +65,12 @@
 	<div class="job_market" id="job_market">
 		<div>
 			<ul class="questionnaires">
-				{#each forms as { ID, name, photo, about, sphere }}
+				{#each members as { ID, name, surname, email, tg }}
 					<li class="questionnaire">
-						<img src={photo} alt="" width="384px" height="400px" />
-						<a href="/{ID}">{ID}, {name}, {sphere}</a>
-						<p>{about.substring(0, 500)}</p>
-						<button on:click={() => add_to_team(ID)}>Пригласить в команду</button>
+						<!-- <img src={photo} alt="" width="384px" height="400px" /> -->
+						<a href="/{ID}">{name}, {surname}</a>
+						<p>{email}</p>
+						<p>{tg}</p>
 						<!-- on:click={} -->
 					</li>
 				{/each}
