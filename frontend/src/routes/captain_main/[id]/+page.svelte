@@ -86,6 +86,10 @@
 		let obj = await response.json();
 		console.log(obj);
 	}
+	// onMount(() => {
+	// 	add_to_team(id_user)
+	// });
+
 </script>
 
 <header>
@@ -122,13 +126,13 @@
 		
 		<div>
 			<ul class="questionnaires">
-				{#each filteredSpeheres as { ID, name, photo, about, sphere }}
+				{#each filteredSpeheres as { ID, name, photo, about, sphere, ID_User }}
 					<li class="questionnaire">
 						<img src={photo} alt="" width="384px" height="400px" />
 						<h3>{name}, {sphere}</h3>
 						<p>{about.substring(0, 500)}</p>
-						{#if !data.team.members.find(member => member.ID === ID)}
-							<button on:click={() => add_to_team(ID)}>Пригласить в команду</button>
+						{#if !data.team.members.find(member => member.ID=== ID_User)}
+							<button on:click={() => add_to_team(ID_User)}>Пригласить в команду</button>
 						{/if}
 					</li>
 				{/each}
