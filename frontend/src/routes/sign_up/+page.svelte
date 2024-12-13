@@ -14,7 +14,6 @@
 			goto(`/form/${id}`);
 		} else {
 			goto(`/main/${id}`);
-			
 		}
 	}
 
@@ -32,7 +31,7 @@
 	import { api } from "../api.js";
 	async function create_user() {
 		if (!validateForm()) {
-			alert("Пожалуйста, заполните все поля правильно.");
+			alert("Все поля должны быть заполнены! Пароль должен содержать больше 6 символов.");
 			return;
 		} else {
 			let response = await fetch(api + "/user/create", {
@@ -43,14 +42,16 @@
 				}
 			});
 			if (!response.ok) {
-				throw new Error(`HTTP error! status: ${response.status}`);
+				const errorObj = await response.json();
+				if (response.status === 500) {
+					alert("Произошла ошибка. Возможно, пользователь с таким email уже существует.");
+				}
 			}
 
 			let obj = await response.json();
 
 			id = obj.id;
 			handleSubmit();
-			
 		}
 	}
 </script>

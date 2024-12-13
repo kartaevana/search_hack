@@ -14,7 +14,7 @@
 	let id = data.user.ID;
 	async function create_team() {
 		if (!validateForm()) {
-			alert("Пожалуйста, заполните все поля правильно.");
+			alert("Поля нельзя оставлять пустыми!");
 			return;
 		} else {
 			try {
@@ -30,7 +30,7 @@
 				}
 
 				let obj = await response.json();
-				console.log(obj);
+				// console.log(obj);
 				id = obj.id
 				goto(`/captain_main/${id}`); //id команды!!
 				id = obj.id;

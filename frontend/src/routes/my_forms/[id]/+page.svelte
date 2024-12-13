@@ -4,30 +4,21 @@
 
 	import { onMount } from "svelte";
 	export let data;
+	
 </script>
+
 
 <header>
 	<a href="/">
 		<img height="24px" src="/cover.png" alt="" style="margin-left:15px" />
 	</a>
 	<div>
-		<a href="/captain_main/{data.team.ID}">Рынок вакансий</a>
-		<a href="/main/{data.team.id_kap}">Режим участника</a>
+		<a href="/main/{data.user.ID}">Рынок вакансий</a>
 	</div>
 </header>
 <main>
-	<div class="logo">
-		<h1>Dream team</h1>
-		<h2>найди свою команду мечты</h2>
-	</div>
-
 	<div class="subheading">
-		<h3>Моя команда</h3>
-		<h3>{data.team.name}</h3>
-		<div>
-			<h4>Описание:</h4>
-			{data.team.about}
-		</div>
+		<h2>Моя заявки</h2>
 	</div>
 	<div class="job_market" id="job_market">
 		<div>

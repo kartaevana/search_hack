@@ -23,9 +23,7 @@
 			}
 		});
 		let obj = await response.json();
-		console.log(obj);
 		forms = obj.forms;
-		console.log(forms);
 	}
 
 	onMount(() => {
@@ -79,14 +77,14 @@
 	}
 </script>
 
-<!-- надо сделать так, чтобы не показывались люди, которые уже в команде -->
 <header>
 	<a href="/">
 		<img height="24px" src="/cover.png" alt="" style="margin-left:15px" />
 	</a>
 	<div>
 		<a href="#job_market">Рынок вакансий</a>
-		<a href='/team/{id}'>Моя команда</a> 
+		<a href="/team/{id}">Моя команда</a>
+		<a href="/main/{data.team.ID_Kap}">Режим участника</a>
 	</div>
 </header>
 <main>
@@ -111,7 +109,7 @@
 		</form>
 	</div>
 	<div class="job_market" id="job_market">
-		<div>
+		<!-- <div>
 			<ul class="questionnaires">
 				{#each forms as { ID, name, photo, about, sphere }}
 					<li class="questionnaire">
@@ -119,7 +117,20 @@
 						<h3>{name}, {sphere}</h3>
 						<p>{about.substring(0, 500)}</p>
 						<button on:click={() => add_to_team(ID)}>Пригласить в команду</button>
-						<!-- on:click={} -->
+					</li>
+				{/each}
+			</ul>
+		</div> -->
+		<div>
+			<ul class="questionnaires">
+				{#each forms as { ID, name, photo, about, sphere }}
+					<li class="questionnaire">
+						<img src={photo} alt="" width="384px" height="400px" />
+						<h3>{name}, {sphere}</h3>
+						<p>{about.substring(0, 500)}</p>
+						{#if !data.team.members.find(member => member.ID === ID)}
+							<button on:click={() => add_to_team(ID)}>Пригласить в команду</button>
+						{/if}
 					</li>
 				{/each}
 			</ul>

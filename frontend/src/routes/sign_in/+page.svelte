@@ -6,8 +6,7 @@
 	let email: string = "";
 
 	function validateForm() {
-		const emailPattern = /^[^s@]+@[^s@]+\.[^s@]+$/;
-		return emailPattern.test(email) && password.length >= 6;
+		return email.length >= 6 && password.length >= 6;
 	}
 
 	let id: number;
@@ -30,9 +29,7 @@
 				}
 
 				let obj = await response.json();
-				console.log(obj.id)
 				id = obj.id;
-				// goto('main/{id}');
 				goto(`/main/${id}`);
 			} catch (error) {
 				console.error("Ошибка при запросе:", error);

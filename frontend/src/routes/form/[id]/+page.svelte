@@ -30,7 +30,7 @@
 
 	async function create_form() {
 		if (!validateForm()) {
-			alert("Пожалуйста, заполните все поля правильно.");
+			alert("Поля нельзя оставлять пустыми!");
 			return;
 		} else {
 			let response = await fetch(api + "/form/create", {
@@ -46,7 +46,6 @@
 				}
 			});
 			let obj = await response.json();
-			console.log(obj);
 			handleSubmit();
 		}
 	}
@@ -64,7 +63,7 @@
 			<div class="question">
 				<div><label for="name">Имя</label></div>
 				<div>
-					<input bind:value={data.user.name} placeholder="Иван" id="name" type="text" readonly />
+					<input bind:value={data.user.name} id="name" type="text" readonly />
 				</div>
 			</div>
 			<div class="question">
@@ -72,7 +71,6 @@
 				<div>
 					<input
 						bind:value={data.user.surname}
-						placeholder="Иванов"
 						id="surname"
 						type="text"
 						readonly
@@ -102,7 +100,7 @@
 			</div>
 		</div>
 		<div>
-			<h2>Выберите фотографию кота:</h2>
+			<h2>Выберите фотографию кота для анкеты:</h2>
 
 			<div class="image-container">
 				{#each images as image}
