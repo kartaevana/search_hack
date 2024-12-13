@@ -96,8 +96,7 @@
 	<div class="subheading">
 		<h3>Рынок вакансий</h3>
 
-		<input type="search" id="inputSearch" placeholder="Поиск..." title="Поиск по ключевым словам" />
-
+		
 		<form>
 			<select id="sphere-select" bind:value={selectedSphere}>
 				<option value="all"> Все </option>
