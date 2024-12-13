@@ -109,18 +109,7 @@
 		</form>
 	</div>
 	<div class="job_market" id="job_market">
-		<!-- <div>
-			<ul class="questionnaires">
-				{#each forms as { ID, name, photo, about, sphere }}
-					<li class="questionnaire">
-						<img src={photo} alt="" width="384px" height="400px" />
-						<h3>{name}, {sphere}</h3>
-						<p>{about.substring(0, 500)}</p>
-						<button on:click={() => add_to_team(ID)}>Пригласить в команду</button>
-					</li>
-				{/each}
-			</ul>
-		</div> -->
+		
 		<div>
 			<ul class="questionnaires">
 				{#each forms as { ID, name, photo, about, sphere }}
