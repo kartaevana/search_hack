@@ -24,6 +24,7 @@
 		});
 		let obj = await response.json();
 		forms = obj.forms;
+		getFormBySphere();
 	}
 
 	onMount(() => {
@@ -44,16 +45,26 @@
 	}> = [];
 	let selectedSphere = "all";
 
-	$: if (selectedSphere) getFormBySphere();
 	const getFormBySphere = () => {
 		if (selectedSphere === "all") {
-			return (filteredSpeheres = forms);
+			filteredSpeheres = forms; // Если выбран фильтр "all", показываем все формы
+		} else {
+			filteredSpeheres = forms.filter(summary => summary.sphere === selectedSphere); // Фильтрация по сфере
 		}
-		return (filteredSpeheres = forms.filter(summary => summary.sphere === selectedSphere));
 	};
+	let filters = {
+		designer: false,
+		frontend: false,
+		backend: false,
+		ml: false
+	};
+	$: selectedSphere, getFormBySphere();
+
 	onMount(() => {
 		getFormBySphere();
 	});
+
+
 
 	export let data;
 	let id = data.team.ID;
@@ -111,7 +122,7 @@
 		
 		<div>
 			<ul class="questionnaires">
-				{#each forms as { ID, name, photo, about, sphere }}
+				{#each filteredSpeheres as { ID, name, photo, about, sphere }}
 					<li class="questionnaire">
 						<img src={photo} alt="" width="384px" height="400px" />
 						<h3>{name}, {sphere}</h3>
