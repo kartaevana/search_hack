@@ -55,14 +55,14 @@
 		</div>
 		<!-- bind:value={about} -->
 		<div class="question">
-			<div><label for="description">О себе</label></div>
+			<div><label for="description">О команде:</label></div>
 			<div>
 				<textarea
 					id="description"
 					bind:value={description}
 					cols="113"
 					rows="10"
-					placeholder="Я студент 2 курса мисис, начинающий фронтендер ищу команду для хакатона..."
+					placeholder="Мы команда заряженных начинающих хакатонщиков..."
 				></textarea>
 			</div>
 		</div>
