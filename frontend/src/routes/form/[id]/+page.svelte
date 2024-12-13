@@ -14,7 +14,7 @@
 		{ src: "../cat3.jpeg", alt: "Cat 3" }
 	];
 
-	function handleSelection(image) {
+	function handleSelection(image: string) {
 		selectedImage = image;
 	}
 

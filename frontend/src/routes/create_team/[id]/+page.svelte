@@ -53,7 +53,6 @@
 			<div><label for="name">Название команды</label></div>
 			<div><input bind:value={name} placeholder="ДримТим" id="name" type="text" /></div>
 		</div>
-		<!-- bind:value={about} -->
 		<div class="question">
 			<div><label for="description">О команде:</label></div>
 			<div>

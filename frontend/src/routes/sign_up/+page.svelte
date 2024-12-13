@@ -8,15 +8,6 @@
 	let surname: string = "";
 	let tg: string = "";
 
-	let selectedValue = "yes";
-	async function handleSubmit() {
-		if (selectedValue === "yes") {
-			goto(`/form/${id}`);
-		} else {
-			goto(`/main/${id}`);
-		}
-	}
-
 	function validateForm() {
 		return (
 			email.length >= 6 &&
@@ -54,6 +45,16 @@
 			handleSubmit();
 		}
 	}
+	
+	let selectedValue = "yes";
+	async function handleSubmit() {
+		if (selectedValue === "yes") {
+			goto(`/form/${id}`);
+		} else {
+			goto(`/main/${id}`);
+		}
+	}
+
 </script>
 
 <header>

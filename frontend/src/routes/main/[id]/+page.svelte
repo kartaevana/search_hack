@@ -25,14 +25,13 @@
 			}
 		});
 		let obj = await response.json();
-		forms = obj.forms; // Заполнение массива forms загруженными данными
-		getFormBySphere(); // Обновление фильтрованных данных после загрузки
+		forms = obj.forms; 
+		getFormBySphere(); 
 	}
 
-	// Функция для фильтрации данных по выбранной сфере
 	const getFormBySphere = () => {
 		if (selectedSphere === "all") {
-			filteredSpeheres = forms; // Если выбран фильтр "all", показываем все формы
+			filteredSpeheres = forms; 
 		} else {
 			filteredSpeheres = forms.filter(summary => summary.sphere === selectedSphere); // Фильтрация по сфере
 		}
