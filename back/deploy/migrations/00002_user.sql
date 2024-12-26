@@ -29,7 +29,7 @@ create table if not exists hack (
 create table if not exists team (
     id serial not null primary key,
     name varchar,
-    id_hack bigint,
+    about varchar,
     id_kap bigint
 );
 
