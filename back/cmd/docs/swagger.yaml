@@ -79,6 +79,39 @@ definitions:
 info:
   contact: {}
 paths:
+  /approve/accept:
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: approve accepted
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/models.Approve'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Successfully accepted approve
+          schema:
+            type: integer
+        "400":
+          description: Invalid input
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal server error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Accept approve
+      tags:
+      - approve
   /approve/all:
     get:
       consumes:
