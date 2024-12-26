@@ -45,7 +45,7 @@
 			handleSubmit();
 		}
 	}
-	
+
 	let selectedValue = "yes";
 	async function handleSubmit() {
 		if (selectedValue === "yes") {
@@ -55,6 +55,18 @@
 		}
 	}
 
+	//  смена цвета для кнопки
+	let color1 = "#ffffff";
+	let font_color1 = "black";
+
+	function handleMouseOver(e) {
+		color1 = "#1e1e1e";
+		font_color1 = "#ffffff";
+	}
+	function handleMouseOut(e) {
+		color1 = "#ffffff";
+		font_color1 = "black";
+	}
 </script>
 
 <header>
@@ -103,7 +115,15 @@
 		</fieldset>
 
 		<div class="submit">
-			<input type="submit" value="Зарегистрироваться" on:click={create_user} id="submit" />
+			<button
+				on:click={create_user}
+				id="submit"
+				style="background-color: {color1}; color: {font_color1}"
+				on:mouseover={handleMouseOver}
+				on:mouseout={handleMouseOut}
+			>
+				Зарегистрироваться</button
+			>
 		</div>
 	</form>
 </main>
@@ -156,16 +176,9 @@
 			}
 
 			#submit {
-				background-color: rgba(245, 245, 245, 1);
 				height: 190%;
 				width: 310px;
 				border-radius: 8px;
-				color: black;
-			}
-			#submit:disabled {
-				background-color: gray;
-				color: lightgray;
-				cursor: not-allowed;
 			}
 		}
 	}

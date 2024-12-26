@@ -49,6 +49,19 @@
 			handleSubmit();
 		}
 	}
+
+	//  смена цвета для кнопки
+	let color1 = "#ffffff";
+	let font_color1 = "black";
+
+	function handleMouseOver(e) {
+		color1 = "#1e1e1e";
+		font_color1 = "#ffffff";
+	}
+	function handleMouseOut(e) {
+		color1 = "#ffffff";
+		font_color1 = "black";
+	}
 </script>
 
 <header>
@@ -115,7 +128,16 @@
 		</div>
 
 		<div class="submit">
-			<input type="submit" value="Создать анкету" id="submit" on:click={create_form} />
+			<!-- <input type="submit" value="Создать анкету" id="submit" on:click={create_form} /> -->
+			<button
+				on:click={create_form}
+				id="submit"
+				style="background-color: {color1}; color: {font_color1}"
+				on:mouseover={handleMouseOver}
+				on:mouseout={handleMouseOut}
+			>
+			Создать анкету</button
+			>
 		</div>
 	</form>
 </main>

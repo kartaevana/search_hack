@@ -36,6 +36,20 @@
 			}
 		}
 	}
+
+
+	//  смена цвета для кнопки
+	let color1 = "#ffffff";
+	let font_color1 = "black";
+
+	function handleMouseOver(e) {
+		color1 = "#1e1e1e";
+		font_color1 = "#ffffff";
+	}
+	function handleMouseOut(e) {
+		color1 = "#ffffff";
+		font_color1 = "black"
+	}
 </script>
 
 <header>
@@ -58,7 +72,16 @@
 		</div>
 
 		<div class="submit">
-			<input type="submit" on:click={login_user} value="Войти" id="submit" />
+			<!-- <input type="submit" on:click={login_user} value="Войти" id="submit" /> -->
+			<button
+				on:click={login_user}
+				id="submit"
+				style="background-color: {color1}; color: {font_color1}"
+				on:mouseover={handleMouseOver}
+				on:mouseout={handleMouseOut}
+			>
+			Войти</button
+			>
 		</div>
 	</form>
 </main>
@@ -96,7 +119,8 @@
 				margin: 10px;
 			}
 
-			#submit {
+			button {
+				margin-top: 5px;
 				background-color: rgba(245, 245, 245, 1);
 				height: 190%;
 				width: 310px;
