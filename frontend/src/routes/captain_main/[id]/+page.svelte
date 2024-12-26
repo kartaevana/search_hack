@@ -31,7 +31,7 @@
 		list_forms();
 	});
 
-	let sphere = ["all", "frontend", "backend", "ml", "design"];
+	let sphere = ["all", "frontend", "backend", "ml", "designer"];
 	let filteredSpeheres: Array<{
 		ID: number;
 		name: string;
@@ -115,7 +115,7 @@
 		<form>
 			<select id="sphere-select" bind:value={selectedSphere}>
 				<option value="all"> Все </option>
-				<option value="design">Дизайнер</option>
+				<option value="designer">Дизайнер</option>
 				<option value="frontend">Фронтенд</option>
 				<option value="ml">ML</option>
 				<option value="backend">Бэкенд</option>

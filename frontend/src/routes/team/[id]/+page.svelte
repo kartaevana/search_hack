@@ -12,23 +12,19 @@
 	</a>
 	<div>
 		<a href="/captain_main/{data.team.ID}">Рынок вакансий</a>
-		<a href="/main/{data.team.id_kap}">Режим участника</a>
+		<a href="/main/{data.team.ID_Kap}">Режим участника</a>
 	</div>
 </header>
 <main>
 	<div class="logo">
-		<h1>Dream team</h1>
-		<h2>найди свою команду мечты</h2>
-	</div>
-
-	<div class="subheading">
-		<h3>Моя команда</h3>
-		<h3>{data.team.name}</h3>
-		<div>
-			<h4>Описание:</h4>
+		<h1>{data.team.name}</h1>
+		<div class="about">
+			<h3>Описание:</h3>
 			{data.team.about}
 		</div>
 	</div>
+
+	
 	<div class="job_market" id="job_market">
 		<div>
 			<ul class="questionnaires">
@@ -67,7 +63,7 @@
 	}
 	main {
 		.logo {
-			height: 452px;
+			min-height: 452px;
 			display: flex;
 			justify-content: center;
 			align-items: center;
@@ -79,35 +75,15 @@
 				font-size: 32px;
 				color: rgba(255, 255, 255, 0.7);
 			}
-		}
-		.subheading {
-			min-height: 160px;
-			display: flex;
-			flex-direction: column;
-			background-color: #1e1e1e;
-			justify-content: center;
-			align-items: center;
-			gap: 20px;
-			padding-top: 30px;
-			h3 {
-				font-size: 29px;
-			}
-			#inputSearch {
-				color: aliceblue;
-				height: 40px;
-				width: 347px;
-				border-radius: 30px;
-				background-color: rgba(44, 44, 44, 1);
-			}
-			#sphere-select {
-				color: aliceblue;
-				width: 243px;
-				height: 37px;
-				border-radius: 10px;
-				background-color: rgba(44, 44, 44, 1);
+			.about{
+				margin: 13px;
+				border: #ffffff;
+				border-style: solid;
+				padding: 13px;
 			}
 		}
 		.job_market {
+			padding-top: 30px;
 			min-height: 500px;
 			display: flex;
 			flex-direction: row;
