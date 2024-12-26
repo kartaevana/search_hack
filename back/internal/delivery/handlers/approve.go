@@ -19,6 +19,35 @@ func InitApproveHandler(service service.ApproveServ) ApproveHandler {
 	}
 }
 
+// @Summary Accept approve
+// @Tags approve
+// @Accept  json
+// @Produce  json
+// @Param data body models.Approve true "approve accepted"
+// @Success 200 {object} int "Successfully accepted approve"
+// @Failure 400 {object} map[string]string "Invalid input"
+// @Failure 500 {object} map[string]string "Internal server error"
+// @Router /approve/accept [put]
+func (handler ApproveHandler) AcceptApprove(g *gin.Context) {
+	var newApprove models.Approve
+
+	if err := g.ShouldBindJSON(&newApprove); err != nil {
+		g.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
+	defer cancel()
+
+	err := handler.service.Accept(ctx, newApprove)
+	if err != nil {
+		g.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
+	g.JSON(http.StatusOK, gin.H{"accepted": "success"})
+}
+
 // @Summary Create approve
 // @Tags approve
 // @Accept  json

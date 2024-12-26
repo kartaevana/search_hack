@@ -21,6 +21,7 @@ type ApproveServ interface {
 	Create(ctx context.Context, approve models.ApproveCreate) (int, error)
 	Reject(ctx context.Context, approve models.Approve) error
 	GetAll(ctx context.Context) ([]*models.Approve, error)
+	Accept(ctx context.Context, approve models.Approve) error
 }
 
 type TeamServ interface {

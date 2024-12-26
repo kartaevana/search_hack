@@ -14,6 +14,15 @@ type ServApprove struct {
 	log         *log.Logs
 }
 
+func (serv ServApprove) Accept(ctx context.Context, approve models.Approve) error {
+	err := serv.ApproveRepo.Accept(ctx, approve)
+	if err != nil {
+		return err
+	}
+	serv.log.Info(fmt.Sprintf("Accepted approve in team %v", approve.ID_Team))
+	return nil
+}
+
 func (serv ServApprove) GetAll(ctx context.Context) ([]*models.Approve, error) {
 	approve, err := serv.ApproveRepo.GetAll(ctx)
 	if err != nil {
