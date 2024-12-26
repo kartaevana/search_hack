@@ -65,6 +65,8 @@ func Start(db *sqlx.DB, log *log.Logs) {
 	approveHandler := handlers.InitApproveHandler(approveService)
 
 	approveRouter.POST("/create", approveHandler.CreateApprove)
+	approveRouter.POST("/reject", approveHandler.RejectApprove)
+	approveRouter.GET("/all", approveHandler.GetAllApprove)
 
 	if err := r.Run("0.0.0.0:8080"); err != nil {
 		panic(fmt.Sprintf("error running client: %v", err.Error()))

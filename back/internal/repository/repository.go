@@ -25,4 +25,6 @@ type TeamRepo interface {
 
 type ApproveRepo interface {
 	Create(ctx context.Context, approve models.ApproveCreate) (int, error)
+	Reject(ctx context.Context, approve models.Approve) error
+	GetAll(ctx context.Context) ([]*models.Approve, error)
 }
