@@ -15,6 +15,49 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
+        "/approve/all": {
+            "get": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "approve"
+                ],
+                "summary": "Get all approves",
+                "responses": {
+                    "200": {
+                        "description": "Successfully get all approves",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/models.Approve"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid input",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/approve/create": {
             "post": {
                 "consumes": [
@@ -41,6 +84,57 @@ const docTemplate = `{
                 "responses": {
                     "200": {
                         "description": "Successfully created approve",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid input",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/approve/reject": {
+            "post": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "approve"
+                ],
+                "summary": "Reject approve",
+                "parameters": [
+                    {
+                        "description": "approve rejected",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.Approve"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successfully rejected approve",
                         "schema": {
                             "type": "integer"
                         }
@@ -518,6 +612,20 @@ const docTemplate = `{
         }
     },
     "definitions": {
+        "models.Approve": {
+            "type": "object",
+            "properties": {
+                "ID_Form": {
+                    "type": "integer"
+                },
+                "ID_Team": {
+                    "type": "integer"
+                },
+                "id": {
+                    "type": "integer"
+                }
+            }
+        },
         "models.ApproveCreate": {
             "type": "object",
             "properties": {
