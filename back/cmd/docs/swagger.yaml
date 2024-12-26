@@ -1,4 +1,13 @@
 definitions:
+  models.Approve:
+    properties:
+      ID_Form:
+        type: integer
+      ID_Team:
+        type: integer
+      id:
+        type: integer
+    type: object
   models.ApproveCreate:
     properties:
       ID_Form:
@@ -70,6 +79,34 @@ definitions:
 info:
   contact: {}
 paths:
+  /approve/all:
+    get:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Successfully get all approves
+          schema:
+            items:
+              $ref: '#/definitions/models.Approve'
+            type: array
+        "400":
+          description: Invalid input
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal server error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Get all approves
+      tags:
+      - approve
   /approve/create:
     post:
       consumes:
@@ -101,6 +138,39 @@ paths:
               type: string
             type: object
       summary: Create approve
+      tags:
+      - approve
+  /approve/reject:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: approve rejected
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/models.Approve'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Successfully rejected approve
+          schema:
+            type: integer
+        "400":
+          description: Invalid input
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal server error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Reject approve
       tags:
       - approve
   /form/{id}:
