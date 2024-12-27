@@ -64,8 +64,6 @@
 		getFormBySphere();
 	});
 
-
-
 	export let data;
 	let id = data.team.ID;
 	let id_user: number;
@@ -89,7 +87,6 @@
 	// onMount(() => {
 	// 	add_to_team(id_user)
 	// });
-
 </script>
 
 <header>
@@ -111,7 +108,6 @@
 	<div class="subheading">
 		<h3>Рынок вакансий</h3>
 
-		
 		<form>
 			<select id="sphere-select" bind:value={selectedSphere}>
 				<option value="all"> Все </option>
@@ -123,7 +119,6 @@
 		</form>
 	</div>
 	<div class="job_market" id="job_market">
-		
 		<div>
 			<ul class="questionnaires">
 				{#each filteredSpeheres as { ID, name, photo, about, sphere, ID_User }}
@@ -131,7 +126,7 @@
 						<img src={photo} alt="" width="384px" height="400px" />
 						<h3>{name}, {sphere}</h3>
 						<p>{about.substring(0, 500)}</p>
-						{#if !data.team.members.find(member => member.ID=== ID_User)}
+						{#if !data.team.members.find(member => member.ID === ID_User)}
 							<button on:click={() => add_to_team(ID_User)}>Пригласить в команду</button>
 						{/if}
 					</li>
@@ -217,7 +212,7 @@
 				display: flex;
 				flex-direction: row;
 				flex-wrap: wrap;
-				justify-content: start;
+				justify-content: center;
 				gap: 36px;
 				.questionnaire {
 					display: flex;
@@ -245,6 +240,75 @@
 					}
 					button {
 						margin-top: auto;
+					}
+				}
+			}
+		}
+	}
+	@media (max-width: 578px) {
+		header {
+			height: auto;
+			img {
+				height: 15px;
+				margin-top: 7px;
+			}
+			div {
+				margin-top: 13px;
+				flex-wrap: wrap;
+				justify-content: end;
+			}
+		}
+		main {
+			.logo {
+				h1 {
+					text-align: center;
+					margin: 0;
+					font-size: 62px;
+				}
+				h2 {
+					text-align: center;
+					margin: 0;
+					font-size: 20px;
+				}
+			}
+			.subheading {
+				flex-direction: column;
+				align-items: center;
+			}
+			.job_market {
+				flex-direction: column;
+				align-items: center;
+				justify-content: center;
+				.questionnaires {
+					flex-direction: column;
+					align-items: center;
+					justify-content: center;
+				}
+			}
+		}
+		@media (max-width: 348px) {
+			main {
+				width: 100%;
+				.subheading {
+					#sphere-select {
+						width: 170px;
+					}
+				}
+				.job_market {
+					flex-direction: column;
+					width: 100%;
+					margin: 0;
+
+					.questionnaires {
+						flex-direction: column;
+						align-items: center;
+						width: 100%;
+						margin: 0;
+						gap: 0;
+						.questionnaire {
+							width: 100%;
+							margin: 5px;
+						}
 					}
 				}
 			}

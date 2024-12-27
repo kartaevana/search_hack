@@ -104,12 +104,13 @@
 			justify-content: center;
 			align-items: center;
 			background-color: #1e1e1e;
-			width: 578px;
+			// width: 578px;
+			width: 41%;
 			height: 322px;
 
 			input {
 				background-color: #1e1e1e;
-				width: 530px;
+				width: 100%;
 				border-radius: 8px;
 				color: aliceblue;
 				height: 40px;
@@ -117,6 +118,7 @@
 
 			.question {
 				margin: 10px;
+				width: 90%;
 			}
 
 			button {
@@ -127,6 +129,34 @@
 				border-radius: 8px;
 				color: black;
 			}
+			// #submit {
+			// 	margin-top: 5px;
+			// 	height: 190%;
+			// 	width: 110%;
+			// 	border-radius: 8px;
+			// }
 		}
+	}
+	@media (max-width: 780px) {
+		h1 {
+			font-size: 44px;
+		}
+		
+		main {
+			width: 100%;
+			form {
+				width: 100%;
+				margin: 0;
+				
+			}
+		}
+	}
+	@media (max-width: 320px) {
+		main{form{
+			button{
+			width: 110px;
+		}
+		}}
+		
 	}
 </style>

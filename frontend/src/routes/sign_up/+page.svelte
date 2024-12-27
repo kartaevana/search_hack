@@ -146,14 +146,16 @@
 			justify-content: center;
 			align-items: center;
 			background-color: #1e1e1e;
-			width: 578px;
+			// width: 578px;
+			width: 41%;
 			height: 572px;
 			border-radius: 8px;
 			margin: 15px;
 
 			input {
 				background-color: #1e1e1e;
-				width: 530px;
+				// width: 530px;
+				width: 100%;
 				border-radius: 8px;
 				color: aliceblue;
 				height: 40px;
@@ -162,7 +164,8 @@
 				display: flex;
 				justify-content: center;
 				margin: 10px;
-				width: 300px;
+				// width: 300px;
+				width: 55%;
 				height: 60px;
 				.choice {
 					margin: 10px;
@@ -173,12 +176,28 @@
 
 			.question {
 				margin: 10px;
+				width: 90%;
 			}
 
 			#submit {
 				height: 190%;
-				width: 310px;
+				width: 110%;
 				border-radius: 8px;
+			}
+		}
+	}
+	@media (max-width: 700px) {
+		h1 {
+			justify-content: left;
+			font-size: 30px;
+		}
+		
+		main {
+			width: 100%;
+			form {
+				width: 100%;
+				margin: 0;
+				
 			}
 		}
 	}

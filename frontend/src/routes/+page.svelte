@@ -8,7 +8,7 @@
 		goto("/sign_in");
 	}
 
-//  смена цвета для кнопки регистрации
+	//  смена цвета для кнопки регистрации
 	let color1 = "#ffffff";
 	let font_color1 = "black";
 
@@ -18,7 +18,7 @@
 	}
 	function handleMouseOut(e) {
 		color1 = "#ffffff";
-		font_color1 = "black"
+		font_color1 = "black";
 	}
 
 	//  смена цвета для кнопки входа
@@ -27,16 +27,12 @@
 
 	function handleMouseOver2(e) {
 		color2 = "#ffffff";
-		font_color2 = "black"
+		font_color2 = "black";
 	}
 	function handleMouseOut2(e) {
 		color2 = "#1e1e1e";
 		font_color2 = "#ffffff";
 	}
-
-
-
-
 </script>
 
 <header>
@@ -49,7 +45,7 @@
 	<div class="logo">
 		<h1>Dream team</h1>
 		<h2>Присоединяйтесь к нам!</h2>
-		<div>
+		<div class="buttons">
 			<button
 				on:click={go_sign_up}
 				id="sign_up"
@@ -59,9 +55,15 @@
 			>
 				Регистрация</button
 			>
-			<button on:click={go_sign_in} id="sign_in" style="background-color: {color2}; color: {font_color2}"
-			on:mouseover={handleMouseOver2}
-			on:mouseout={handleMouseOut2} > Вход</button>
+			<button
+				on:click={go_sign_in}
+				id="sign_in"
+				style="background-color: {color2}; color: {font_color2}"
+				on:mouseover={handleMouseOver2}
+				on:mouseout={handleMouseOut2}
+			>
+				Вход</button
+			>
 		</div>
 	</div>
 </main>
@@ -94,13 +96,27 @@
 				border-radius: 8px;
 			}
 			#sign_up {
-				// background-color: rgba(44, 44, 44, 1);
-				// color: #ffffff;
 				width: 118px;
 			}
 			#sign_in {
 				width: 55px;
 			}
+		}
+	}
+	@media (max-width: 454px) {
+		main {
+			display: flex;
+			flex-direction: column;
+		}
+		h1 {
+			text-align: center;
+			margin: 0; 
+		}
+
+		.buttons {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
 		}
 	}
 </style>

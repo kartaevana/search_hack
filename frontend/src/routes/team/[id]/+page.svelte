@@ -24,7 +24,6 @@
 		</div>
 	</div>
 
-	
 	<div class="job_market" id="job_market">
 		<div>
 			<ul class="questionnaires">
@@ -75,7 +74,7 @@
 				font-size: 32px;
 				color: rgba(255, 255, 255, 0.7);
 			}
-			.about{
+			.about {
 				margin: 13px;
 				border: #ffffff;
 				border-style: solid;
@@ -120,6 +119,83 @@
 					}
 					button {
 						margin-top: auto;
+					}
+				}
+			}
+		}
+	}
+	@media (max-width: 660px) {
+		header {
+			height: auto;
+			img {
+				height: 15px;
+				margin-top: 7px;
+			}
+			div {
+				margin-top: 13px;
+				flex-wrap: wrap;
+				justify-content: end;
+			}
+		}
+		main {
+			.logo {
+				h1 {
+					text-align: center;
+					margin: 0;
+					font-size: 42px;
+				}
+				.about {
+					font-size: 15px;
+				}
+			}
+			.subheading {
+				flex-direction: column;
+				align-items: center;
+			}
+			.job_market {
+				flex-direction: column;
+				align-items: center;
+				justify-content: center;
+				.questionnaires {
+					flex-direction: column;
+					align-items: center;
+					justify-content: center;
+				}
+			}
+		}
+		@media (max-width: 348px) {
+			main {
+				width: 100%;
+				.logo {
+					h1 {
+						text-align: center;
+						margin: 0;
+						font-size: 32px;
+					}
+					.about {
+						font-size: 11px;
+					}
+				}
+				.subheading {
+					#sphere-select {
+						width: 170px;
+					}
+				}
+				.job_market {
+					flex-direction: column;
+					width: 100%;
+					margin: 0;
+
+					.questionnaires {
+						flex-direction: column;
+						align-items: center;
+						width: 100%;
+						margin: 0;
+						gap: 0;
+						.questionnaire {
+							width: 100%;
+							margin: 5px;
+						}
 					}
 				}
 			}

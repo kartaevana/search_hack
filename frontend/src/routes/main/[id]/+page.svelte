@@ -25,13 +25,13 @@
 			}
 		});
 		let obj = await response.json();
-		forms = obj.forms; 
-		getFormBySphere(); 
+		forms = obj.forms;
+		getFormBySphere();
 	}
 
 	const getFormBySphere = () => {
 		if (selectedSphere === "all") {
-			filteredSpeheres = forms; 
+			filteredSpeheres = forms;
 		} else {
 			filteredSpeheres = forms.filter(summary => summary.sphere === selectedSphere); // Фильтрация по сфере
 		}
@@ -150,6 +150,7 @@
 				color: rgba(255, 255, 255, 0.7);
 			}
 		}
+
 		.subheading {
 			height: 160px;
 			display: flex;
@@ -162,13 +163,7 @@
 			h3 {
 				font-size: 29px;
 			}
-			#inputSearch {
-				color: aliceblue;
-				height: 40px;
-				width: 347px;
-				border-radius: 30px;
-				background-color: rgba(44, 44, 44, 1);
-			}
+
 			#sphere-select {
 				color: aliceblue;
 				width: 243px;
@@ -178,6 +173,7 @@
 			}
 		}
 		.job_market {
+			width: 100%;
 			min-height: 1000px;
 			display: flex;
 			flex-direction: row;
@@ -188,7 +184,8 @@
 				display: flex;
 				flex-direction: row;
 				flex-wrap: wrap;
-				justify-content: start;
+				justify-content: center;
+
 				gap: 36px;
 				.questionnaire {
 					display: flex;
@@ -212,6 +209,75 @@
 						margin-top: 7px;
 						color: aliceblue;
 						font-size: 25px;
+					}
+				}
+			}
+		}
+	}
+	@media (max-width: 578px) {
+		header {
+			height: auto;
+			img {
+				height: 15px;
+				margin-top: 7px;
+			}
+			div {
+				margin-top: 13px;
+				flex-wrap: wrap;
+				justify-content: end;
+			}
+		}
+		main {
+			.logo {
+				h1 {
+					text-align: center;
+					margin: 0;
+					font-size: 62px;
+				}
+				h2 {
+					text-align: center;
+					margin: 0;
+					font-size: 20px;
+				}
+			}
+			.subheading {
+				flex-direction: column;
+				align-items: center;
+			}
+			.job_market {
+				flex-direction: column;
+				align-items: center;
+				justify-content: center;
+				.questionnaires {
+					flex-direction: column;
+					align-items: center;
+					justify-content: center;
+				}
+			}
+		}
+		@media (max-width: 348px) {
+			main {
+				width: 100%;
+				.subheading {
+					#sphere-select {
+						width: 170px;
+					}
+				}
+				.job_market {
+					flex-direction: column;
+					width: 100%;
+					margin: 0;
+
+					.questionnaires {
+						flex-direction: column;
+						align-items: center;
+						width: 100%;
+						margin: 0;
+						gap: 0;
+						.questionnaire {
+							width: 100%;
+							margin: 5px;
+						}
 					}
 				}
 			}

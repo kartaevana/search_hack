@@ -48,7 +48,7 @@
 </header>
 <h1>Создание команды</h1>
 <main>
-	<form action="">
+	<form>
 		<div class="question">
 			<div><label for="name">Название команды</label></div>
 			<div><input bind:value={name} placeholder="ДримТим" id="name" type="text" /></div>
@@ -89,12 +89,14 @@
 			justify-content: center;
 			align-items: center;
 			background-color: #1e1e1e;
-			width: 978px;
+			// width: 978px;
+			width: 69%;
 			height: 372px;
 
 			input {
 				background-color: #1e1e1e;
-				width: 330px;
+				// width: 330px;
+				// width: 100%;
 				border-radius: 8px;
 				color: aliceblue;
 				height: 40px;
@@ -102,7 +104,8 @@
 			input,
 			textarea {
 				background-color: #1e1e1e;
-				width: 929px;
+				// width: 929px;
+				width: 97%;
 				border-radius: 8px;
 				color: aliceblue;
 				height: 40px;
@@ -110,19 +113,45 @@
 			}
 			textarea {
 				height: 100px;
+				width: 97%;
 			}
 
 			.question {
 				margin: 10px;
+				width: 97%;
 			}
 
 			#submit {
 				background-color: rgba(245, 245, 245, 1);
 				height: 190%;
 				width: 310px;
+				// width: 100%;
 				border-radius: 8px;
 				color: black;
 			}
 		}
+	}
+	@media (max-width: 780px) {
+		h1 {
+			font-size: 44px;
+		}
+		
+		main {
+			width: 100%;
+			form {
+				width: 100%;
+				margin: 0;
+				
+			}
+		}
+	}
+	@media (max-width: 320px) {
+		main{form{
+			#submit{
+			width: 150px;
+			height: 150%;
+		}
+		}}
+		
 	}
 </style>

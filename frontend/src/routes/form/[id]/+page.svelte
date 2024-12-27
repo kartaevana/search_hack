@@ -82,12 +82,7 @@
 			<div class="question">
 				<div><label for="surname">Фамилия</label></div>
 				<div>
-					<input
-						bind:value={data.user.surname}
-						id="surname"
-						type="text"
-						readonly
-					/>
+					<input bind:value={data.user.surname} id="surname" type="text" readonly />
 				</div>
 			</div>
 			<div class="idk"><label for="role">Роль</label></div>
@@ -101,10 +96,10 @@
 			</div>
 		</div>
 		<div class="question">
-			<div><label for="description">О себе</label></div>
+			<div class="idk"><label for="description">О себе</label></div>
 			<div>
 				<textarea
-					id="description"
+					class="description"
 					bind:value={about}
 					cols="113"
 					rows="10"
@@ -136,7 +131,7 @@
 				on:mouseover={handleMouseOver}
 				on:mouseout={handleMouseOut}
 			>
-			Создать анкету</button
+				Создать анкету</button
 			>
 		</div>
 	</form>
@@ -159,30 +154,37 @@
 			flex-direction: column;
 			align-items: center;
 			background-color: #1e1e1e;
-			width: 977px;
+			// width: 977px;
+			width: 67%;
 			height: 734px;
 			margin-bottom: 30px;
 
 			.question {
 				margin: 10px;
 				margin-top: 15px;
+				width: 95%;
 
 				input,
 				select,
 				textarea {
 					background-color: #1e1e1e;
-					width: 929px;
+					// width: 929px;
+					width: 104%;
 					border-radius: 8px;
 					color: aliceblue;
 					height: 40px;
 					margin-top: 10px;
 				}
+				select {
+					width: 100%;
+				}
 				.idk {
 					margin-left: 9px;
 				}
 
-				#description,
-				#achievements {
+				.description {
+					margin-left: 9px;
+					width: 100%;
 					height: 100px;
 				}
 			}
@@ -205,6 +207,34 @@
 				height: 190%;
 				width: 310px;
 				border-radius: 8px;
+			}
+		}
+	}
+	@media (max-width: 758px) {
+		h1 {
+			font-size: 44px;
+		}
+
+		main {
+			width: 100%;
+			form {
+				width: 100%;
+				margin: 0;
+			}
+		}
+		@media (max-width: 458px) {
+			main {
+				form {
+					height: 1030px;
+					.image-container {
+						align-items: center;
+						display: flex;
+						flex-direction: column;
+					}
+					#submit{
+						width: 110px;
+					}
+				}
 			}
 		}
 	}
